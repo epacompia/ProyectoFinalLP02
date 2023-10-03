@@ -40,7 +40,7 @@ public class Ticket {
 	private LocalDateTime assignedDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "incident_user", nullable = false, foreignKey = @ForeignKey(name = "fk_tickets_user_assigned"))
+	@JoinColumn(name = "incident_user", nullable = false, foreignKey = @ForeignKey(name = "fk_tickets_user_incident"))
 	private User incidentUser;
 	
 	
