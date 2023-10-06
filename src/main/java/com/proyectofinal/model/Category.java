@@ -18,7 +18,7 @@ public class Category {
 	private int category_id;
 	
 	@Column(name = "name_category")
-	private String nameCategory;
+	private String name_category;
 	
 	private boolean flag;
 
@@ -30,12 +30,12 @@ public class Category {
 		this.category_id = category_id;
 	}
 
-	public String getNameCategory() {
-		return nameCategory;
+	public String getName_category() {
+		return name_category;
 	}
 
-	public void setNameCategory(String nameCategory) {
-		this.nameCategory = nameCategory;
+	public void setName_category(String name_category) {
+		this.name_category = name_category;
 	}
 
 	public boolean isFlag() {

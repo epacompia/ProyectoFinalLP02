@@ -14,27 +14,28 @@ public class DocumentType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "document_type_id")
-	private int documentType_id;
+	private int document_type_id;
 	
 	@Column(name = "name_doc", length = 50)
-	private String nameDocument;
+	private String name_doc;
 	
 	private boolean flag;
+	
 
-	public int getDocumentType_id() {
-		return documentType_id;
+	public int getDocument_type_id() {
+		return document_type_id;
 	}
 
-	public void setDocumentType_id(int documentType_id) {
-		this.documentType_id = documentType_id;
+	public void setDocument_type_id(int document_type_id) {
+		this.document_type_id = document_type_id;
 	}
 
-	public String getNameDocument() {
-		return nameDocument;
+	public String getName_doc() {
+		return name_doc;
 	}
 
-	public void setNameDocument(String nameDocument) {
-		this.nameDocument = nameDocument;
+	public void setName_doc(String name_doc) {
+		this.name_doc = name_doc;
 	}
 
 	public boolean isFlag() {

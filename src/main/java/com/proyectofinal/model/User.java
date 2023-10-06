@@ -36,10 +36,10 @@ public class User {
 	
 	@ManyToOne
 	@JoinColumn(name = "document_type_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_document_type"))
-	private DocumentType documentType_id;
+	private DocumentType document_type_id;
 	
-	@Column(name = "numdocument", nullable=false)
-	private String numDocument;
+	@Column(name = "num_document", nullable=false)
+	private String num_document;
 	
 	@Column(name = "email", length = 50, nullable=false)
 	private String email;
@@ -99,21 +99,21 @@ public class User {
 	public void setSurname2(String surname2) {
 		this.surname2 = surname2;
 	}
-
-	public DocumentType getDocumentType_id() {
-		return documentType_id;
+	
+	public DocumentType getDocument_type_id() {
+		return document_type_id;
 	}
 
-	public void setDocumentType_id(DocumentType documentType_id) {
-		this.documentType_id = documentType_id;
+	public void setDocument_type_id(DocumentType document_type_id) {
+		this.document_type_id = document_type_id;
+	}
+	
+	public String getNum_document() {
+		return num_document;
 	}
 
-	public String getNumDocument() {
-		return numDocument;
-	}
-
-	public void setNumDocument(String numDocument) {
-		this.numDocument = numDocument;
+	public void setNum_document(String num_document) {
+		this.num_document = num_document;
 	}
 
 	public String getEmail() {

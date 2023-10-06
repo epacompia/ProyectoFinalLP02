@@ -30,18 +30,18 @@ public class Ticket {
 	private String status;
 	
 	@Column(name = "ticket_date_create")
-	private LocalDateTime ticketCreate;
+	private LocalDateTime ticket_date_create;
 	
 	@ManyToOne
 	@JoinColumn(name = "assigned_user", foreignKey = @ForeignKey(name = "fk_tickets_user_assigned"))
-	private User assignedUser;
+	private User assigned_user;
 	
 	@Column(name = "assigned_date")
-	private LocalDateTime assignedDate;
+	private LocalDateTime assigned_date;
 	
 	@ManyToOne
 	@JoinColumn(name = "incident_user", nullable = false, foreignKey = @ForeignKey(name = "fk_tickets_user_incident"))
-	private User incidentUser;
+	private User incident_user;
 	
 	
 	@ManyToOne
@@ -75,29 +75,30 @@ public class Ticket {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public LocalDateTime getTicketCreate() {
-		return ticketCreate;
+
+	public LocalDateTime getTicket_date_create() {
+		return ticket_date_create;
 	}
-	public void setTicketCreate(LocalDateTime ticketCreate) {
-		this.ticketCreate = ticketCreate;
+	public void setTicket_date_create(LocalDateTime ticket_date_create) {
+		this.ticket_date_create = ticket_date_create;
 	}
-	public User getAssignedUser() {
-		return assignedUser;
+	public User getAssigned_user() {
+		return assigned_user;
 	}
-	public void setAssignedUser(User assignedUser) {
-		this.assignedUser = assignedUser;
+	public void setAssigned_user(User assigned_user) {
+		this.assigned_user = assigned_user;
 	}
-	public LocalDateTime getAssignedDate() {
-		return assignedDate;
+	public LocalDateTime getAssigned_date() {
+		return assigned_date;
 	}
-	public void setAssignedDate(LocalDateTime assignedDate) {
-		this.assignedDate = assignedDate;
+	public void setAssigned_date(LocalDateTime assigned_date) {
+		this.assigned_date = assigned_date;
 	}
-	public User getIncidentUser() {
-		return incidentUser;
+	public User getIncident_user() {
+		return incident_user;
 	}
-	public void setIncidentUser(User incidentUser) {
-		this.incidentUser = incidentUser;
+	public void setIncident_user(User incident_user) {
+		this.incident_user = incident_user;
 	}
 	public boolean isFlag() {
 		return flag;

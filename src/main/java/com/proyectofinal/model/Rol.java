@@ -20,7 +20,7 @@ public class Rol {
 	private int rol_id;
 	
 	@Column(name = "name_rol", length = 30, nullable = false)
-	private String nameRol;
+	private String name_rol;
 	
 	private boolean flag;
 	
@@ -41,12 +41,12 @@ public class Rol {
 		this.rol_id = rol_id;
 	}
 
-	public String getNameRol() {
-		return nameRol;
+	public String getName_rol() {
+		return name_rol;
 	}
 
-	public void setNameRol(String nameRol) {
-		this.nameRol = nameRol;
+	public void setName_rol(String name_rol) {
+		this.name_rol = name_rol;
 	}
 
 	public boolean isFlag() {

@@ -22,7 +22,7 @@ public class TicketDetail {
 	private int ticketDetail_id;
 	
 	@Column(name = "ticket_detail_description", length = 500)
-	private String ticketDetailDescription;
+	private String ticket_detail_description;
 	
 	@OneToOne
 	@MapsId
@@ -30,7 +30,7 @@ public class TicketDetail {
 	private Ticket ticket_id;
 	
 	@Column(name = "ticket_detail_date_create")
-	private LocalDateTime ticketDetailDateCreate;
+	private LocalDateTime ticket_detail_date_create;
 	
 	private boolean flag;
 	
@@ -41,17 +41,18 @@ public class TicketDetail {
 	public void setTicketDetail_id(int ticketDetail_id) {
 		this.ticketDetail_id = ticketDetail_id;
 	}
-	public String getTicketDetailDescription() {
-		return ticketDetailDescription;
+	
+	public String getTicket_detail_description() {
+		return ticket_detail_description;
 	}
-	public void setTicketDetailDescription(String ticketDetailDescription) {
-		this.ticketDetailDescription = ticketDetailDescription;
+	public void setTicket_detail_description(String ticket_detail_description) {
+		this.ticket_detail_description = ticket_detail_description;
 	}
-	public LocalDateTime getTicketDetailDateCreate() {
-		return ticketDetailDateCreate;
+	public LocalDateTime getTicket_detail_date_create() {
+		return ticket_detail_date_create;
 	}
-	public void setTicketDetailDateCreate(LocalDateTime ticketDetailDateCreate) {
-		this.ticketDetailDateCreate = ticketDetailDateCreate;
+	public void setTicket_detail_date_create(LocalDateTime ticket_detail_date_create) {
+		this.ticket_detail_date_create = ticket_detail_date_create;
 	}
 	public Ticket getTicket_id() {
 		return ticket_id;

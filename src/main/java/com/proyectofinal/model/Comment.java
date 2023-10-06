@@ -24,8 +24,8 @@ public class Comment {
 	private String comment_content;
 	
 	@ManyToOne
-	@JoinColumn(name = "ticket_detail_id", nullable = false, foreignKey = @ForeignKey(name = "fk_comment_ticket_detail"))
-	private TicketDetail ticketDetail_id;
+	@JoinColumn(name = "ticket__id", nullable = false, foreignKey = @ForeignKey(name = "fk_comment_ticket"))
+	private Ticket ticket_id;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_comment_user"))
@@ -34,6 +34,7 @@ public class Comment {
 	
 	private LocalDateTime comment_date;
 
+	
 	public int getCommnent_id() {
 		return commnent_id;
 	}
@@ -50,12 +51,12 @@ public class Comment {
 		this.comment_content = comment_content;
 	}
 
-	public TicketDetail getTicketDetail_id() {
-		return ticketDetail_id;
+	public Ticket getTicket_id() {
+		return ticket_id;
 	}
 
-	public void setTicketDetail_id(TicketDetail ticketDetail_id) {
-		this.ticketDetail_id = ticketDetail_id;
+	public void setTicket_id(Ticket ticket_id) {
+		this.ticket_id = ticket_id;
 	}
 
 	public User getUser_id() {
