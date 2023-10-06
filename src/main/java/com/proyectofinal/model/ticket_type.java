@@ -7,10 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "ticket_type")
 public class ticket_type {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ticket_type_id")
@@ -77,7 +78,4 @@ public class ticket_type {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	
-	
-	
 }
