@@ -210,13 +210,13 @@
                             </div>
                         </div>
                     </div>-->
-                    <a th:href="@{/categories/new}" class="col-sm-6 col-xl-3">
+                    <a th:href="@{/ticketstype/new}" class="col-sm-6 col-xl-3">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                           <!-- <i class="fa fa-chart-pie fa-3x text-primary"></i> -->
                           <i class="fa fa-plus fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Crear Nueva</p>
-                                <h6 class="mb-0">CATEGORIA</h6>
+                                <p class="mb-2">Crear Nuevo Tipo de Ticket</p>
+                                <h6 class="mb-0">Tipo Ticket</h6>
                             </div>
                         </div>
                     </a>
@@ -229,25 +229,25 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-3">
-                            <h6 class="mb-4">Categorias</h6>
+                            <h6 class="mb-4">Tipo de Tickets</h6>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Descripcion de Categoria</th>
+                                            <th scope="col">Descripcion de Tipo de Ticket</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="category : ${categories}">
-                                           <th scope="row" th:text="${category.category_id}"></th>
-                                            <td th:text="${category.name_category}"></td>
-                                            <td th:text="${category.flag}"></td>
+                                        <tr th:each="ticketType : ${ticketsType}">
+                                           <th scope="row" th:text="${ticketType.ticket_type_id}"></th>
+                                            <td th:text="${ticketType.name_ticket_type}"></td>
+                                            <td th:text="${ticketType.flag}"></td>
                                             <td>
-												<a class="m-2" th:href="@{categories/edit/{id}(id=${category.category_id})}"><i class="fa fa-pen"></i></a>
-												<a class="m-2" href="#"><i class="fa fa-trash"></i></a>
+												<a class="m-2" th:href="@{ticketstype/edit/{id}(id=${ticketType.ticket_type_id})}"><i class="fa fa-pen"></i></a>
+												<a class="m-2" th:href="@{ticketstype/delete/{id}(id=${ticketType.ticket_type_id})}"><i class="fa fa-trash"></i></a>
 											</td>
                                         </tr>
                                     

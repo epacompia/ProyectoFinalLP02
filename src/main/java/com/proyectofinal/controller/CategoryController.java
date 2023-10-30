@@ -68,6 +68,11 @@ public class CategoryController {
 		categoryService.update(newCategory);
 		return "redirect:/categories";
 	}
-	
+
+	@GetMapping("/categories/delete/{id}")
+	public String deleteCategory(@PathVariable Integer id){
+		categoryService.delete(id);
+		return "redirect:/categories";
+	}
 	
 }
