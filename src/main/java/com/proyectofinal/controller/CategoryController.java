@@ -18,7 +18,7 @@ import com.proyectofinal.service.impl.CategoryServiceImpl;
 public class CategoryController {
 
 	@Autowired
-	private CategoryServiceImpl categoryService;
+	private ICategoryService categoryService;
 	
 	
 	@GetMapping("/categories")
