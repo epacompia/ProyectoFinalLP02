@@ -192,18 +192,15 @@
 				</div>
 			</nav>
 			<!-- Navbar End -->
-			<!--FORMULARIO PARA EDITAR REGISTRO-->
+			<!--FORMULARIO PARA NUEVO REGISTRO-->
 			<div class="col-sm-12 col-xl-12">
 				<div class="bg-secondary rounded h-100 p-4">
 					<h6 class="mb-4">Basic Form</h6>
-					<form action="/saverol" method="post" th:object="${rol}">
-						<div class="mb-3">
-							<!--<label for="exampleInputEmail1" class="form-label">Email address</label>-->
-							<input type="hidden" class="form-control" id="rol_id" th:field="*{rol_id}">
-						</div>
+					<form action="/savenewrol" method="post" th:object="${rol}">						
 						<div class="mb-3">
 							<label for="name_rol" class="form-label">Nombre del rol</label>
 							<input type="text" class="form-control" th:field="*{name_rol}" id="name_rol">
+							<div th:text="${mensaje1}" th:class="${cssmensaje1}" role="alert"></div>
 						</div>
 						<button type="submit" class="btn btn-primary">Guardar</button>
 						<a href="/rol" class="btn btn-danger">Regresar</a>
