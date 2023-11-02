@@ -208,7 +208,7 @@
 									<label for="name_category" class="form-label">Descripción de Categoria</label>
 									<input type="text" class="form-control" id="name_category" th:field="*{name_category}">
 								</div>
-								<select class="form-select mb-3" aria-label="Default select example" th:if="${category.category_id}" th:field="*{flag}">
+								<select class="form-select mb-3" aria-label="Default select example" th:if="${category.category_id}">
 									<option value="" selected>Estado</option>
 									<option th:value="true" th:selected="${flag==true}">Activo</option>
 									<option th:value="false" th:selected="${flag == false}">Inactivo</option>

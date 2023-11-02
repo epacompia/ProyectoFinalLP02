@@ -50,10 +50,10 @@ public class CategoryController {
 	public String updateCategoryForm(@PathVariable Integer id,Model model) {
 		
 		Category category = categoryService.getOne(id);
+
 		if(category == null) {
 			return "redirect:/categories";
 		}
-		
 		model.addAttribute("category", category);
 		
 		return "category-form";

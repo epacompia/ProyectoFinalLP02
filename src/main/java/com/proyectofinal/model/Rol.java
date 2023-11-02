@@ -19,7 +19,7 @@ public class Rol {
 	@Column(name = "rol_id")
 	private int rol_id;
 	
-	@Column(name = "name_rol", length = 30, nullable = false)
+	@Column(name = "name_rol", length = 30, nullable = false, unique = true)
 	private String name_rol;
 	
 	private boolean flag;
