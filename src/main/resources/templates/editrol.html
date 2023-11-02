@@ -188,57 +188,33 @@
 					</div>
 				</div>
 			</nav>
-			<!-- Navbar End -->
-
-
-			<!-- Sale & Revenue Start -->
-			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4 justify-content-end">
-					<a href="#" class="col-sm-6 col-xl-3">
-						<div class="bg-secondary rounded d-flex align-items-center p-4">
-							<i class="fa fa-plus fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
-							<p class="mb-0">Crear Nuevo</p>
-						</div>
-					</a>
-				</div>
-			</div>
+			<!-- Navbar End -->			
 
 			<!-- Sale & Revenue End -->
 
 
-			<!-- Sales Chart Start -->
-			<div class="container-fluid pt-4 px-4">
-				<div class="col-12">
-					<div class="bg-secondary rounded h-100 p-3">
-						<h6 class="mb-4">Rol</h6>
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Nombre del rol</th>
-										<th scope="col">Estado</th>
-										<th scope="col">Acciones</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="rol : ${lstRoles}">
-										<th scope="row" th:text="${rol.rol_id}"></th>
-										<td th:text="${rol.name_rol}"></td>
-										<td th:text="${rol.flag} ? 'Activo' : 'Inactivo'"></td>
-										<td>											
-											<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i class="fa fa-pen"></i></a>
-											<a class="m-2" href="#"><i class="fa fa-trash"></i></a>
-										</td>
-									</tr>
-								</tbody>
+			<!-- form -->
+			<div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Basic Form</h6>
+                            <form action="/saverol" method="post" th:object="${rol}">
+                                <div class="mb-3">
+                                    <!--<label for="exampleInputEmail1" class="form-label">Email address</label>-->
+                                    <input type="hidden" class="form-control" id="rol_id" th:field="*{rol_id}"
+                                        aria-describedby="emailHelp">                                    
+                                </div>
+                                <div class="mb-3">
+                                    <label for="txtname_rol" class="form-label">Nombre del rol</label>
+                                    <input type="text" class="form-control" th:field="*{name_rol}" id="name_rol">
+                                </div>                                
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="/rol" class="btn btn-danger">Regresar</a>
+                            </form>
+                            <br>
+                            <div th:text="${mensaje}" th:class="${cssmensaje}" role="alert"></div>
+                        </div>
+                    </div>
 
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Recent Sales End -->
 
 
 			<!-- Footer Start -->
