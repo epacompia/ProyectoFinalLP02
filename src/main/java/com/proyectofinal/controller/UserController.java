@@ -1,6 +1,7 @@
 package com.proyectofinal.controller;
 
 import com.proyectofinal.model.User;
+import com.proyectofinal.service.IDocumentTypeService;
 import com.proyectofinal.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,14 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-	private IUserService UserService;
+	private IUserService userService;
+	@Autowired
+	private IDocumentTypeService documentTypeService;
 	
 	
 	@GetMapping("/users")
 	public String users(Model model) {
-		List<User> users = UserService.getAll();
+		List<User> users = userService.getAll();
 		model.addAttribute("users", users);
 		return "user";
 	}
@@ -31,20 +34,21 @@ public class UserController {
 	public String saveUserForm(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
+		model.addAttribute("typeDocuments", documentTypeService.getAll());
 		return "user-form";
 	}
 	
 	@PostMapping("/users/new")
 	public String saveUser(@ModelAttribute("user") User user, Model model) {
 		User newUser = new User();
-		UserService.register(newUser);
+		userService.register(newUser);
 		return "redirect:/users";
 	}
 	
 	@GetMapping("/users/edit/{id}")
 	public String updateUserForm(@PathVariable Integer id,Model model) {
 		
-		User user = UserService.getOne(id);
+		User user = userService.getOne(id);
 		if(user == null) {
 			return "redirect:/users";
 		}
@@ -56,7 +60,7 @@ public class UserController {
 	
 	@PostMapping("/users/edit/{id}")
 	public String updateUser(@PathVariable Integer id, @ModelAttribute("User") User user, Model model) {
-		User newUser = UserService.getOne(id);
+		User newUser = userService.getOne(id);
 		newUser.setUser_id(user.getUser_id());
 		newUser.setFirstname(user.getFirstname());
 		newUser.setSecondname(user.getSecondname());
@@ -68,13 +72,13 @@ public class UserController {
 		newUser.setPassword(user.getPassword());
 		newUser.setRol_id(user.getRol_id());
 		newUser.setFlag(user.isFlag());
-		UserService.update(newUser);
+		userService.update(newUser);
 		return "redirect:/users";
 	}
 
 	@GetMapping("/users/delete/{id}")
 	public String deleteUser(@PathVariable Integer id){
-		UserService.delete(id);
+		userService.delete(id);
 		return "redirect:/users";
 	}
 	
