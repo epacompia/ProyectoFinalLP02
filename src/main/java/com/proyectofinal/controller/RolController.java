@@ -72,6 +72,7 @@ public class RolController {
 	        model.addAttribute("mensaje1", "El campo 'nombre' es obligatorio");
 	        model.addAttribute("cssmensaje1", "alert alert-danger");
 	        return "newrol";  // Reemplaza 'tu_vista' por el nombre de tu vista
+	        //test de prueba
 	    }
 		  try { repoRol.save(rol); model.addAttribute("mensaje","Registro ok");
 		  model.addAttribute("cssmensaje","alert alert-primary"); } catch (Exception e)
