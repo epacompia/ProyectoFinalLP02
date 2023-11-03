@@ -226,10 +226,46 @@
 										<th scope="row" th:text="${rol.rol_id}"></th>
 										<td th:text="${rol.name_rol}"></td>
 										<td th:text="${rol.flag} ? 'Activo' : 'Inactivo'"></td>
-										<td>											
-											<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i class="fa fa-pen"></i></a>
-											<a class="m-2" href="#"><i class="fa fa-trash"></i></a>
+										<td>
+											<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i
+													class="fa fa-pen"></i></a>
+											<a class="m-2" href="#" data-bs-toggle="modal"
+												th:attr="data-bs-target='#deleteModal'+${rol.rol_id}"><i
+													class="fa fa-trash"></i></a>
 										</td>
+
+											<!--
+                                			Modal Start
+                               				 -->
+
+										<div class="modal fade" th:attr="id=deleteModal+${rol.rol_id}"
+											tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content bg-secondary">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">¿Está seguro
+															que desea Elimiar el registro: [[${rol.rol_id}]] ?
+														</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>													
+													<div class="modal-footer d-flex justify-content-center">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cancelar
+														</button>
+														<a type="button" class="btn btn-primary"
+															th:href="@{/rol/delete/{rol_id}(rol_id=${rol.rol_id})}">Eliminar
+														</a>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+											<!--
+                                			Modal End
+                                			-->
+
 									</tr>
 								</tbody>
 

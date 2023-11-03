@@ -68,7 +68,11 @@ public class RolController {
 	
 	@PostMapping("/saverol")
 	public String saverol(@ModelAttribute Rol rol, Model model) {
-		
+		if (rol.getName_rol() == null || rol.getName_rol().isEmpty()) {
+	        model.addAttribute("mensaje1", "El campo 'nombre' es obligatorio");
+	        model.addAttribute("cssmensaje1", "alert alert-danger");
+	        return "newrol";  // Reemplaza 'tu_vista' por el nombre de tu vista
+	    }
 		  try { repoRol.save(rol); model.addAttribute("mensaje","Registro ok");
 		  model.addAttribute("cssmensaje","alert alert-primary"); } catch (Exception e)
 		  { // TODO: handle exception
@@ -77,6 +81,14 @@ public class RolController {
 		  }	 
 			
 		  return "redirect:/rol";
+	}
+	
+	//ELIMINAR
+	@GetMapping("/rol/delete/{rol_id}")
+	public String deleteRol(@PathVariable Integer rol_id){
+		//repoRol.delete(rol_id);
+		repoRol.deleteById(rol_id);
+		return "redirect:/rol";
 	}
 	
 	
