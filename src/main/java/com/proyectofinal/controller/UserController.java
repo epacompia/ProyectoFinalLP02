@@ -1,6 +1,7 @@
 package com.proyectofinal.controller;
 
 import com.proyectofinal.model.User;
+import com.proyectofinal.repository.IRolRepository;
 import com.proyectofinal.service.IDocumentTypeService;
 import com.proyectofinal.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ public class UserController {
 	private IUserService userService;
 	@Autowired
 	private IDocumentTypeService documentTypeService;
-	
+
+	@Autowired
+	private IRolRepository rolRepository;
 	
 	@GetMapping("/users")
 	public String users(Model model) {
@@ -35,6 +38,7 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("typeDocuments", documentTypeService.getAll());
+		model.addAttribute("roles", rolRepository.findAll());
 		return "user-form";
 	}
 	
