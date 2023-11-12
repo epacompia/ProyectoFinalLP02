@@ -56,7 +56,7 @@ public class User {
 	@Column(name = "create_at", updatable = false)
 	private LocalDateTime create_at;
 	
-	@Column(name = "update_at")
+	@Column(name = "update_at", nullable = true)
 	private LocalDateTime update_at;
 	
 	
