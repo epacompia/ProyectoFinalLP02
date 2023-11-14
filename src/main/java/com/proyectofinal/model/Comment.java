@@ -24,7 +24,7 @@ public class Comment {
 	private String comment_content;
 	
 	@ManyToOne
-	@JoinColumn(name = "ticket__id", nullable = false, foreignKey = @ForeignKey(name = "fk_comment_ticket"))
+	@JoinColumn(name = "ticket_id", nullable = false, foreignKey = @ForeignKey(name = "fk_comment_ticket"))
 	private Ticket ticket_id;
 	
 	@ManyToOne
