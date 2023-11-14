@@ -1,14 +1,19 @@
 package com.proyectofinal.model;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -47,9 +52,16 @@ public class User {
 	@Column(name = "password", nullable=false)
 	private String password;
 	
-	@ManyToOne
-	@JoinColumn(name = "rol_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_rol"))
-	private Rol rol_id;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "rol_id", nullable = false, foreignKey = @ForeignKey(name
+	 * = "fk_user_rol")) private List<Rol> rol_id;
+	 */
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "rol_id"))
+	private List<Rol> rol_id;
 	
 	private boolean flag;
 
@@ -132,11 +144,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Rol getRol_id() {
+	public List<Rol> getRol_id() {
 		return rol_id;
 	}
 
-	public void setRol_id(Rol rol_id) {
+	public void setRol_id(List<Rol> rol_id) {
 		this.rol_id = rol_id;
 	}
 

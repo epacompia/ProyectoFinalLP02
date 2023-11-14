@@ -41,7 +41,7 @@ public class RolController {
 		 if (rol.getName_rol() == null || rol.getName_rol().isEmpty()) {
 		        model.addAttribute("mensaje1", "El campo 'nombre' es obligatorio");
 		        model.addAttribute("cssmensaje1", "alert alert-danger");
-		        return "newrol";  // Reemplaza 'tu_vista' por el nombre de tu vista
+		        return "newrol";  
 		    }
 		try {
 			repoRol.save(rol);

@@ -7,4 +7,5 @@ import com.proyectofinal.model.User;
 public interface IUserRepo extends JpaRepository<User, Integer>{
 	//Consulta para mi login
 	User findByEmailAndPassword(String email, String password);
+	User findByEmail(String email);
 }
