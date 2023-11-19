@@ -16,6 +16,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
 
 
 @Entity
@@ -70,8 +71,8 @@ public class User {
 	
 	@Column(name = "update_at", nullable = true)
 	private LocalDateTime update_at;
-	
-	
+
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -175,7 +176,10 @@ public class User {
 	public void setUpdate_at(LocalDateTime update_at) {
 		this.update_at = update_at;
 	}
-	
+
+	public String getDisplayName(){
+		return getFirstname() + " " + getSurname1();
+	}
 
 
 }
