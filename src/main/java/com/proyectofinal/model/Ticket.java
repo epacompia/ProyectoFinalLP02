@@ -53,7 +53,7 @@ public class Ticket {
 	
 	@ManyToOne
 	@JoinColumn(name = "ticket_type_id", nullable = false, foreignKey = @ForeignKey(name="fk_ticket_ticket_type"))
-	private TicketType ticket_type_id;
+	private ticket_type ticket_type_id;
 	
 	private boolean flag;
 
@@ -62,7 +62,7 @@ public class Ticket {
 
 	public Ticket(int ticket_id, String ticket_title, String ticket_description, TicketStatus ticket_status,
 			LocalDateTime ticket_date_create, User assigned_user, LocalDateTime assigned_date, User incident_user,
-			Category category_id, TicketType ticket_type_id, boolean flag) {
+			Category category_id, ticket_type ticket_type_id, boolean flag) {
 		this.ticket_id = ticket_id;
 		this.ticket_title = ticket_title;
 		this.ticket_description = ticket_description;
@@ -157,11 +157,11 @@ public class Ticket {
 		this.category_id = category_id;
 	}
 
-	public TicketType getTicket_type_id() {
+	public ticket_type getTicket_type_id() {
 		return ticket_type_id;
 	}
 
-	public void setTicket_type_id(TicketType ticket_type_id) {
+	public void setTicket_type_id(ticket_type ticket_type_id) {
 		this.ticket_type_id = ticket_type_id;
 	}
 

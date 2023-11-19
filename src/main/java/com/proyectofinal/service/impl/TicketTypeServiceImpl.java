@@ -1,7 +1,7 @@
 package com.proyectofinal.service.impl;
 
-import com.proyectofinal.model.TicketType;
-import com.proyectofinal.repository.ITicketTypeRepo;
+import com.proyectofinal.model.ticket_type;
+import com.proyectofinal.repository.ITicketTypeRepository;
 import com.proyectofinal.service.ITicketTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,27 +13,27 @@ import java.util.Optional;
 public class TicketTypeServiceImpl implements ITicketTypeService {
 
     @Autowired
-    private ITicketTypeRepo ticketTypeRepo;
+    private ITicketTypeRepository ticketTypeRepo;
 
     @Override
-    public TicketType register(TicketType entity) {
+    public ticket_type register(ticket_type entity) {
         return ticketTypeRepo.save(entity);
     }
 
     @Override
-    public TicketType update(TicketType entity) {
+    public ticket_type update(ticket_type entity) {
         return ticketTypeRepo.save(entity);
     }
 
     @Override
-    public List<TicketType> getAll() {
+    public List<ticket_type> getAll() {
         return ticketTypeRepo.findAll();
     }
 
     @Override
-    public TicketType getOne(int id) {
-        Optional<TicketType> ticketType = ticketTypeRepo.findById(id);
-        return ticketType.orElseGet(TicketType::new);
+    public ticket_type getOne(int id) {
+        Optional<ticket_type> ticketType = ticketTypeRepo.findById(id);
+        return ticketType.orElseGet(ticket_type::new);
     }
 
     @Override
