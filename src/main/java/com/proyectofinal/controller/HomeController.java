@@ -30,19 +30,20 @@ public class HomeController {
 	
 	@PostMapping("/login")
 	public String saveLogin(
-			@RequestParam(name="txtEmail") String email,
-			@RequestParam(name="txtPassword") String password,
-			Model model) {
+	/*
+	 * @RequestParam(name="txtEmail") String email,
+	 * 
+	 * @RequestParam(name="txtPassword") String password, Model model
+	 */) {
 		//validacion
-		User u=repoUser.findByEmailAndPassword(email, password);
-		if(u != null) {
-			return "redirect:/ticket";
-		}else {
-			model.addAttribute("mensaje","Su correo o contraseña no son validos");
-			model.addAttribute("cssmensaje","alert alert-danger");
-			return "redirect:/login";
-		}
-		//return "login";
+		/*
+		 * User u=repoUser.findByEmailAndPassword(email, password); if(u != null) {
+		 * return "redirect:/ticket"; }else {
+		 * model.addAttribute("mensaje","Su correo o contraseña no son validos");
+		 * model.addAttribute("cssmensaje","alert alert-danger"); return
+		 * "redirect:/login"; }
+		 */
+		return "login";
 	}
 	
 
