@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
 	<meta charset="utf-8">
@@ -63,7 +65,9 @@
 						</div>
 					</div>
 					<div class="ms-3">
-						<h6 class="mb-0"><span th:text="${user.firstname}"></span></span></h6>
+						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${#authentication.getPrincipal().getUsername()}|">account</span></h6>-->
+						<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${firstname} ${surname1}|">account</span></h6>
+
 						<span>Admin</span>
 					</div>
 				</div>

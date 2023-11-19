@@ -13,7 +13,6 @@ import com.proyectofinal.model.TicketStatus;
 import com.proyectofinal.repository.ICategoryRepo;
 import com.proyectofinal.repository.ITicketRepository;
 import com.proyectofinal.repository.ITicketTypeRepository;
-import com.proyectofinal.repository.IUserRepo;
 
 import jakarta.transaction.Transactional;
 
@@ -25,10 +24,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.proyectofinal.model.*;
 
 @Controller
-public class TicketController {
+public class TicketControllerOld {
 
 	@Autowired
 	private ITicketRepository repoTicket;
@@ -38,43 +36,26 @@ public class TicketController {
 	private ITicketTypeRepository repoTicketType;
 	@Autowired
 	private UserService_Old userService;
-	@Autowired
-	private IUserRepo repoUser;
+	
 	
 	//listar
-	@GetMapping("/ticket")
+	@GetMapping("/ticketold")
 	public String index(Model model) {
+		//1. Pasando el usuario de sesion a mi vista para ticket
 		// Obtener el usuario autenticado
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    System.out.println("Authentication: " + authentication);
-	    if (authentication != null) {
-	        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	        com.proyectofinal.model.User user = repoUser.findByEmail(userDetails.getUsername());
-
-	        if (user != null) {
-	            // Imprimir información de depuración
-	            System.out.println("Usuario que se autentico al sistema: " + user.getEmail());
-	            System.out.println("Usuario rol: " + user.getRol_id());
-	            System.out.println("Usuario nombre: " + user.getFirstname());
-	            System.out.println("Usuario nombre: " + user.getSurname1());
-
-	            // Pasando a la vista
-	            model.addAttribute("firstname", user.getFirstname());
-	            model.addAttribute("surname1", user.getSurname1());
-
-
-	            // Listado
-	            model.addAttribute("lstTickets", repoTicket.findAll());
-
-	            return "ticket";
-	        }
-	    }
-	 // En caso no redireccione
-	    return "redirect:/login"; // O redirigir a una página de error
+	    String username = authentication.getName();
+	    // Obtener el UserDetails y hacer casting
+	    UserDetails userDetails = userService.loadUserByUsername(username);
+	    User user = (User) userDetails;
+	    model.addAttribute("user", user);
+	    
+		model.addAttribute("lstTickets",repoTicket.findAll());
+		return "ticket";
 	}
 	
 	//editar
-	@GetMapping("/editTicket/{ticket_id}")
+	@GetMapping("/editTicketold/{ticket_id}")
 	@PreAuthorize("isAuthenticated()")
 	public String editTicket(@PathVariable Integer ticket_id, Model model) {
 		Ticket t=repoTicket.findById(ticket_id).get();
@@ -94,7 +75,7 @@ public class TicketController {
 	}
 	
 	//ELIMINAR
-	@GetMapping("/ticket/deleteTicket/{ticket_id}")
+	@GetMapping("/ticket/deleteTicketold/{ticket_id}")
 	@PreAuthorize("isAuthenticated()")
 	@Transactional
 	public String deleteTicket(@PathVariable Integer ticket_id) {

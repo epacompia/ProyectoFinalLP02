@@ -11,46 +11,52 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-import com.proyectofinal.model.Rol;
 import com.proyectofinal.model.User;
 import com.proyectofinal.repository.IUserRepo;
 
-import lombok.extern.slf4j.Slf4j;
+import jakarta.servlet.http.HttpSession;
 
-@Service
-public class UserService implements UserDetailsService {
+public class UserService  implements UserDetailsService{
+
 	@Autowired
 	private IUserRepo repoUser;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		User u = repoUser.findByEmail(username);
 		
+				//imprimiendo en consola el usaurio encontrado
+				if(u != null) {
+					System.out.println("Usuario encontrado:"+u.getEmail());
+				}else {
+					System.out.println("Usuario no encontrado:" + username);
+				}
 		
-		//Si en caso u es mull
-		if (u == null) {
-		    throw new UsernameNotFoundException(String.format("Usuario no existe", username));
-		}
-		
-		List<GrantedAuthority> roles = new ArrayList<>();
-		
-		u.getRol_id().forEach(role -> {
-			roles.add(new SimpleGrantedAuthority(role.getName_rol()));
-		});
-		if (u != null) {
-	        return new org.springframework.security.core.userdetails.User(u.getEmail(), u.getPassword(), roles);
-	    }
-		throw new UsernameNotFoundException(String.format("Usuario no existe", username));
+				//Si en caso u es mull
+				if (u == null) {
+				    throw new UsernameNotFoundException(String.format("Usuario no existe", username));
+				}
+				
+				// Crear un objeto UserDetails personalizado con propiedades 
+			    UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(u.getEmail())
+			            .password(u.getPassword())
+			            .authorities(getAuthorities(u))
+			            .accountExpired(false)
+			            .accountLocked(false)
+			            .credentialsExpired(false)
+			            //.disabled(!u.isEnabled())
+			            .build();
+
+			    return userDetails;
+				
 	}
 	
-	
-	
-	
+	// Obtener los roles  del usuario (roles)
+	private Collection<? extends GrantedAuthority> getAuthorities(User user) {
+	    return user.getRol_id().stream()
+	            .map(role -> new SimpleGrantedAuthority(role.getName_rol()))
+	            .collect(Collectors.toList());
 
-	
-
-
+}
 }
