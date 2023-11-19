@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.proyectofinal.config.UserService;
 import com.proyectofinal.model.Ticket;
 import com.proyectofinal.model.TicketStatus;
 import com.proyectofinal.repository.ICategoryRepo;
@@ -18,7 +19,10 @@ import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Controller
@@ -30,10 +34,22 @@ public class TicketController {
 	private ICategoryRepo repoCat;
 	@Autowired
 	private ITicketTypeRepository repoTicketType;
+	@Autowired
+	private UserService userService;
+	
 	
 	//listar
 	@GetMapping("/ticket")
 	public String index(Model model) {
+		//1. Pasando el usuario de sesion a mi vista para ticket
+		// Obtener el usuario autenticado
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    // Obtener el UserDetails y hacer casting
+	    UserDetails userDetails = userService.loadUserByUsername(username);
+	    User user = (User) userDetails;
+	    model.addAttribute("user", user);
+	    
 		model.addAttribute("lstTickets",repoTicket.findAll());
 		return "ticket";
 	}

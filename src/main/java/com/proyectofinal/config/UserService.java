@@ -17,6 +17,8 @@ import com.proyectofinal.model.Rol;
 import com.proyectofinal.model.User;
 import com.proyectofinal.repository.IUserRepo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
 public class UserService implements UserDetailsService {
 	@Autowired
@@ -39,11 +41,15 @@ public class UserService implements UserDetailsService {
 			roles.add(new SimpleGrantedAuthority(role.getName_rol()));
 		});
 		if (u != null) {
-			return new org.springframework.security.core.userdetails.User(u.getEmail(), u.getPassword(),
-					roles);
-		}
+	        return new org.springframework.security.core.userdetails.User(u.getEmail(), u.getPassword(), roles);
+	    }
 		throw new UsernameNotFoundException(String.format("Usuario no existe", username));
 	}
+	
+	
+	
+	
+
 	
 
 
