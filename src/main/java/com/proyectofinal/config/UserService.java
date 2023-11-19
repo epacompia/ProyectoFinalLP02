@@ -20,7 +20,11 @@ import com.proyectofinal.repository.IUserRepo;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService  implements UserDetailsService{
+
+
+
+
 	@Autowired
 	private IUserRepo repoUser;
 
@@ -28,15 +32,15 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		User u = repoUser.findByEmail(username);
-		
-		
+
+
 		//Si en caso u es mull
 		if (u == null) {
 		    throw new UsernameNotFoundException(String.format("Usuario no existe", username));
 		}
-		
+
 		List<GrantedAuthority> roles = new ArrayList<>();
-		
+
 		u.getRol_id().forEach(role -> {
 			roles.add(new SimpleGrantedAuthority(role.getName_rol()));
 		});

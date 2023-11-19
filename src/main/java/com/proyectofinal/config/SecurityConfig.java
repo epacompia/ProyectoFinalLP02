@@ -22,7 +22,7 @@ public class SecurityConfig {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
@@ -50,16 +50,16 @@ public class SecurityConfig {
 
         return http.build();
     }
-	
-	
+
+
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 
         auth
                 .userDetailsService(userService).passwordEncoder(passwordEncoder());
-                
+
     }
-	
+
 	@Bean
 	public static NoOpPasswordEncoder passwordEncoder() {
 	  return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();

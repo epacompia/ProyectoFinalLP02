@@ -256,12 +256,15 @@
                             <tbody>
                             <tr th:each="user : ${users}">
                                 <th scope="row" th:text="${user.user_id}"></th>
-                                <td th:text="|${user.firstname} ${user.secondname}, ${user.suername1} ${user.surname2}|"></td>
-                                <th scope="row" th:text="${user.document_type_id.name_ticket_type}"></th>
+                                <td th:text="|${user.firstname} ${user.secondname}, ${user.surname1} ${user.surname2}|"></td>
+                                <th scope="row" th:text="${user.document_type_id.name_doc}"></th>
                                 <th scope="row" th:text="${user.num_document}"></th>
                                 <th scope="row" th:text="${user.email}"></th>
                                 <th scope="row" th:text="${user.password}"></th>
-                                <th scope="row" th:text="${user.rol_id.name_rol}"></th>
+<!--                                <th scope="row" th:text="${user.rol_id.name_rol}"></th>-->
+                                <th scope="row" th:each="rol : ${user.rol_id}"
+                                    th:text="${rol.name_rol}">
+                                </th>
                                 <td th:text="${user.flag ? 'ACTIVO' : 'INACTIVO'}"></td>
                                 <td>
                                     <a class="m-2" th:href="@{/users/edit/{id}(id=${user.user_id})}"><i
@@ -282,7 +285,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content bg-secondary">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">¿Está seguro que desea Elimiar el registro: [[${category.category_id}]] ?</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">¿Está seguro que desea Elimiar el registro: [[${user.user_id}]] ?</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>

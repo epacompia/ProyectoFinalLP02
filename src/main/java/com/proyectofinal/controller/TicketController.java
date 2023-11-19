@@ -1,7 +1,7 @@
 package com.proyectofinal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +56,7 @@ public class TicketController {
 	
 	//editar
 	@GetMapping("/editTicket/{ticket_id}")
-	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("isAuthenticated()")
 	public String editTicket(@PathVariable Integer ticket_id, Model model) {
 		Ticket t=repoTicket.findById(ticket_id).get();
 		model.addAttribute("ticket",t);
@@ -76,7 +76,7 @@ public class TicketController {
 	
 	//ELIMINAR
 	@GetMapping("/ticket/deleteTicket/{ticket_id}")
-	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("isAuthenticated()")
 	@Transactional
 	public String deleteTicket(@PathVariable Integer ticket_id) {
 	    repoTicket.updateTicketFlag(ticket_id);
