@@ -58,7 +58,8 @@
                     </div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
+                    <h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h6>
+                    <h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getDisplayName()}"></span></h6>
                     <span>Admin</span>
                 </div>
             </div>
@@ -243,8 +244,8 @@
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
                                         <label class="form-label">Tipo de Documento</label>
-                                        <select class="form-select mb-3" aria-label="Default select example">
-                                            <option selected="">Open this select menu</option>
+                                        <select class="form-select mb-3" aria-label="Default select example" th:field="*{document_type_id}">
+                                            <option value="" selected>Open this select menu</option>
                                             <option th:each="typeDoc : ${typeDocuments}"
                                                     th:selected="${typeDoc == user.document_type_id}"
                                                     th:value="${typeDoc.document_type_id}"
@@ -296,14 +297,12 @@
                                 </div>
                             </div>
 
-
-                            <div class="row">
+<!--                            -->
+                            <div class="row" th:if="${user.user_id}">
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
-                                        <select class="form-select mb-3" aria-label="Default select example"
-                                                th:if="${user.user_id}"
-                                                th:field="*{flag}">
-                                            <option value="" selected>Estado</option>
+                                        <select class="form-select mb-3" aria-label="Default select example" th:field="*{flag}">
+<!--                                            <option value="" th:selected="">Estado</option>-->
                                             <option th:value="true" th:selected="${flag==true}">Activo</option>
                                             <option th:value="false" th:selected="${flag == false}">Inactivo</option>
                                         </select>

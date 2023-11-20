@@ -58,7 +58,8 @@
                     </div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
+                    <h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h6>
+                    <h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getDisplayName()}"></span></h6>
                     <span>Admin</span>
                 </div>
             </div>
@@ -204,7 +205,7 @@
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
                                         <label for="ticket_title" class="form-label">Titulo del Ticket</label>
-                                        <input type="text" class="form-control" id="ticket_title">
+                                        <input type="text" class="form-control" id="ticket_title" th:field="*{ticket_title}" readonly="true">
                                     </div>
                                 </div>
 
@@ -212,7 +213,7 @@
                                     <div class="mb-3">
                                         <label for="ticket_date_create" class="form-label">Fecha de Creación del
                                             Ticket</label>
-                                        <input type="text" class="form-control" id="ticket_date_create">
+                                        <input type="text" class="form-control" id="ticket_date_create" th:field="*{ticket_date_create}" readonly="true">
                                     </div>
                                 </div>
                             </div>
@@ -221,11 +222,11 @@
 
                             <!-- box comment -->
 
-                            <div class="row">
+                            <div class="row" th:object="${comment}">
                                 <div class="mb-3">
                                     <label class="form-label">Descripcion del Ticket</label>
                                     <textarea class="form-control" placeholder="Leave a comment here"
-                                              id="floatingTextarea" style="height: 150px;"></textarea>
+                                              id="floatingTextarea" style="height: 150px;" th:field="*{comment_content}"></textarea>
 
                                 </div>
                             </div>
@@ -234,7 +235,7 @@
                             <button class="btn btn-primary">Guardar</button>
 
                             <!-- end box comment -->
-
+            </form>
 
                             <!-- comments start -->
 
@@ -244,46 +245,29 @@
                                         <h6 class="mb-0">Messages</h6>
                                         <!-- <a href="">Show All</a> -->
                                     </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
+                                    <div class="d-flex align-items-center border-bottom py-3" th:each="comment : ${comments}">
                                         <img class="rounded-circle flex-shrink-0" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
+                                                <h6 class="mb-0" th:text="${comment.user_id.getDisplayName()}">Jhon Doe</h6>
+<!--                                                <small th:text="${comment.comment_date}">15 minutes ago</small>-->
+                                                <small th:text="${#temporals.format(comment.comment_date, 'yyyy-MM-dd HH:mm:ss')}">15 minutes ago</small>
+
                                             </div>
-                                            <span>Short message goes here...</span>
+                                            <span th:text="${comment.comment_content}">Short message goes here...</span>
                                         </div>
+
+<!--                                        <div class="w-100 ms-3">-->
+<!--                                            <div class="d-flex w-100 justify-content-between">-->
+<!--                                                <h6 class="mb-0">Jhon Doe</h6>-->
+<!--                                                <small>15 minutes ago</small>-->
+<!--                                            </div>-->
+<!--                                            <span>Short message goes here...</span>-->
+<!--                                        </div>-->
+
                                     </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="w-100 ms-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="w-100 ms-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center pt-3">
-                                        <img class="rounded-circle flex-shrink-0" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="w-100 ms-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -300,7 +284,6 @@
                     </div>
                 </div>
             </div>
-        </form>
         <!-- Form End -->
 
         <!-- Footer Start -->

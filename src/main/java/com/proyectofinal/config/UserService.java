@@ -43,7 +43,7 @@ public class UserService  implements UserDetailsService{
 		});
 		if (u != null) {
 	        //return new org.springframework.security.core.userdetails.User(u.getEmail(), u.getPassword(), roles);
-			return new UserCustom(u.getEmail(), u.getPassword(),u.getDisplayName()  ,roles);
+			return new UserCustom(u.getEmail(), u.getPassword(),u.getDisplayName()  ,roles, u);
 	    }
 		throw new UsernameNotFoundException(String.format("Usuario no existe", username));
 	}

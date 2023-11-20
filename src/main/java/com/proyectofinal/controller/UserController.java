@@ -58,6 +58,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("user", user);
+		model.addAttribute("typeDocuments", documentTypeService.getAll());
+		model.addAttribute("roles", rolRepository.findAll());
 		
 		return "user-form";
 	}
