@@ -66,8 +66,8 @@
 					</div>
 					<div class="ms-3">
 						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${#authentication.getPrincipal().getUsername()}|">account</span></h6>-->
-						<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${firstname} ${surname1}|">account</span></h6>
-
+						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${firstname} ${surname1}|">account</span></h6>-->
+						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getDisplayName()}"></span></h6>
 						<span>Admin</span>
 					</div>
 				</div>
@@ -202,7 +202,7 @@
 			<!--BOTON PARA NUEVO TICKET-->
 			<div class="container-fluid pt-4 px-4">
 				<div class="row g-4 justify-content-end">
-					<a href="#" class="col-sm-6 col-xl-3">
+					<a th:href="@{/newticket}" class="col-sm-6 col-xl-3">
 						<div class="bg-secondary rounded d-flex align-items-center p-4">
 							<i class="fa fa-plus fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
 							<p class="mb-0">Crear Nuevo</p>
@@ -229,7 +229,7 @@
 											<th scope="col">Estado del ticket</th>
 											<th scope="col">Fecha de creación</th>
 											<th scope="col">Usuario afectado</th>
-											<th scope="col">Técnico asignado</th>
+											<!--<th scope="col">Técnico asignado</th>-->
 											<th scope="col">Fecha de asignación</th>
 											<th>Opciones</th>
 										</tr>
@@ -242,8 +242,8 @@
 											<td th:text="${t.ticket_date_create}"></td>
 											<td th:text="${t.incident_user.firstname + ' ' + t.incident_user.surname1}">
 											</td>
-											<td th:text="${t.assigned_user.firstname + ' ' + t.assigned_user.surname1}">
-											</td>
+											<!--<td th:text="${t.assigned_user.firstname + ' ' + t.assigned_user.surname1}">
+											</td>-->
 											<td th:text="${t.assigned_date}"></td>
 											<!--<td>
 												<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i

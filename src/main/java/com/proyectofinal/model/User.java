@@ -70,8 +70,15 @@ public class User {
 	
 	@Column(name = "update_at", nullable = true)
 	private LocalDateTime update_at;
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", firstname=" + firstname + ", secondname=" + secondname + ", surname1="
+				+ surname1 + ", surname2=" + surname2 + ", document_type_id=" + document_type_id + ", num_document="
+				+ num_document + ", email=" + email + ", password=" + password + ", rol_id=" + rol_id + ", flag=" + flag
+				+ ", create_at=" + create_at + ", update_at=" + update_at + "]";
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -176,6 +183,8 @@ public class User {
 		this.update_at = update_at;
 	}
 	
-
+	public String getDisplayName(){
+		return getFirstname() + " " + getSurname1();
+	}
 
 }

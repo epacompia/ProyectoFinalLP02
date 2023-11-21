@@ -202,36 +202,26 @@
 							<div class="col-sm-12 col-xl-12">
 								<div class="bg-secondary rounded h-100 p-4">
 
-									<form action="/saveTicket" method="post" th:object="${ticket}">
-										<div class="mb-3">
-											<!--<label for="ticketId" class="form-label">Codigo del ticket</label>-->
-											<input type="hidden" class="form-control" th:field="*{ticket_id}"
-												id="ticketId" >
-										</div>
+									<form action="/savenewticket" method="post" th:object="${ticket}">
+										
 										<input type="hidden" class="form-control" th:field="*{incident_user}" id="Incident_user" />
 										<input type="hidden" class="form-control" th:field="*{ticket_date_create}" id="Ticket_date_create" />
 										<input type="hidden" class="form-control" th:field="*{assigned_user}" id="Assigned_user" />
-
+										<!--Titulo del ticket-->
 										<div class="mb-3">
-											<label for="ticketTitle" class="form-label">Título del Ticket</label>
+											<label for="ticket_title" class="form-label">Título del Ticket</label>
 											<input type="text" class="form-control" th:field="*{ticket_title}"
-												id="ticketTitle">
+												id="ticket_title">
+											<div th:text="${mensaje1}" th:class="${cssmensaje1}" role="alert"></div>
 										</div>
+										<!--Descripcion del ticket-->
 										<div class="mb-3">
-											<label for="ticketDescription" class="form-label">Descripción del
+											<label for="ticket_description" class="form-label">Descripción del
 												Ticket</label>
-											<textarea class="form-control" id="ticketDescription"
+											<textarea class="form-control" id="ticket_description"
 												th:field="*{ticket_description}" rows="4"></textarea>
 										</div>
-										<div class="mb-3">
-											<label for="ticketStatus" class="form-label">Estado del Ticket</label>
-											<select class="form-select" id="ticketStatus" th:field="*{ticket_status}">
-												<option value="-1">Seleccionar...</option>
-												<option value="en-proceso" th:each="e :${valuesForTicketStatusEnum}"
-													th:value="${e}" th:text="${e}"></option>
-
-											</select>
-										</div>
+										
 										<!--<div class="mb-3">
 											<label for="ticketDateCreate" class="form-label">Fecha de Creación del
 												Ticket</label>
@@ -258,6 +248,14 @@
 												<option value="-1">Seleccionar...</option>
 												<option th:each="ti : ${lstTicketTypes}" th:value="${ti.ticket_type_id}"
 													th:text="${ti.name_ticket_type}"></option>
+											</select>
+										</div>
+										<div class="mb-3" hidden>
+											<label for="ticketStatus" class="form-label">Estado del Ticket</label>
+											<select class="form-select" id="ticketStatus" th:field="*{ticket_status}">												
+												<option value="en-proceso" th:each="e :${valuesForTicketStatusEnum}"
+													th:value="${e}" th:text="${e}"></option>
+
 											</select>
 										</div>
 										<button type="submit" class="btn btn-primary">Guardar</button>
