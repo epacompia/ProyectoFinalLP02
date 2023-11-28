@@ -6,13 +6,13 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>DarkPan - Bootstrap 5 Admin Template</title>
+	<title>SGI - System</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="" name="keywords">
 	<meta content="" name="description">
 
 	<!-- Favicon -->
-	<link href="img/favicon.ico" rel="icon">
+	<link href="/img/favicon.ico" rel="icon">
 
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,7 +60,7 @@
 				</a>
 				<div class="d-flex align-items-center ms-4 mb-4">
 					<div class="position-relative">
-						<img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+						<img class="rounded-circle" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
 						<div
 							class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
 						</div>
@@ -190,14 +190,14 @@
 					</div>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-							<img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+							<img class="rounded-circle me-lg-2" src="/img/user.jpg" alt=""
 								style="width: 40px; height: 40px;">
 							<span class="d-none d-lg-inline-flex">John Doe</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
 							<a href="#" class="dropdown-item">My Profile</a>
 							<a href="#" class="dropdown-item">Settings</a>
-							<a href="#" class="dropdown-item">Log Out</a>
+							<a th:href="/logout" class="dropdown-item">Cerrar Sesión</a>
 						</div>
 					</div>
 				</div>
@@ -234,7 +234,7 @@
 											<th scope="col">Estado del ticket</th>
 											<th scope="col">Fecha de creación</th>
 											<th scope="col">Usuario afectado</th>
-											<!--<th scope="col">Técnico asignado</th>-->
+											<th scope="col">Técnico asignado</th>
 											<th scope="col">Fecha de asignación</th>
 											<th>Opciones</th>
 										</tr>
@@ -247,8 +247,8 @@
 											<td th:text="${t.ticket_date_create}"></td>
 											<td th:text="${t.incident_user.firstname + ' ' + t.incident_user.surname1}">
 											</td>
-											<!--<td th:text="${t.assigned_user.firstname + ' ' + t.assigned_user.surname1}">
-											</td>-->
+											<td th:text="${t.assigned_user} ? ${t.assigned_user.getDisplayName()} : 'NO ASIGNADO'">
+											</td>
 											<td th:text="${t.assigned_date}"></td>
 											<!--<td>
 												<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i
