@@ -32,4 +32,5 @@ public class UserCustom extends User {
     public void setUser(com.proyectofinal.model.User user) {
         this.user = user;
     }
+
 }

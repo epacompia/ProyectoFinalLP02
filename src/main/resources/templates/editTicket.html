@@ -61,7 +61,10 @@
 						</div>
 					</div>
 					<div class="ms-3">
+<<<<<<< HEAD
 						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h6>
+=======
+>>>>>>> 46354afb1caec6d187fd2af731e65adf40e60a02
 						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getDisplayName()}"></span></h6>
 						<span>Admin</span>
 					</div>
@@ -99,7 +102,7 @@
 
 
 		<!-- Content Start -->
-		<div class="content" layout:fragment="page-content">
+		<div class="content">
 			<!-- Navbar Start -->
 			<nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
 				<a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -205,10 +208,14 @@
 
 									<form action="/saveTicket" method="post" th:object="${ticket}">
 										<div class="mb-3">
-											<label for="ticketId" class="form-label">Codigo del ticket</label>
-											<input type="text" class="form-control" th:field="*{ticket_id}"
-												id="ticketId" readonly>
+											<!--<label for="ticketId" class="form-label">Codigo del ticket</label>-->
+											<input type="hidden" class="form-control" th:field="*{ticket_id}"
+												id="ticketId" >
 										</div>
+										<input type="hidden" class="form-control" th:field="*{incident_user}" id="Incident_user" />
+										<input type="hidden" class="form-control" th:field="*{ticket_date_create}" id="Ticket_date_create" />
+										<input type="hidden" class="form-control" th:field="*{assigned_user}" id="Assigned_user" />
+
 										<div class="mb-3">
 											<label for="ticketTitle" class="form-label">Título del Ticket</label>
 											<input type="text" class="form-control" th:field="*{ticket_title}"

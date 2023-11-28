@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.proyectofinal.config.UserService;
 import com.proyectofinal.model.Ticket;
 import com.proyectofinal.model.TicketStatus;
+import com.proyectofinal.model.UserCustom;
 import com.proyectofinal.repository.ICategoryRepo;
 import com.proyectofinal.repository.ITicketRepository;
 import com.proyectofinal.repository.ITicketTypeRepository;
@@ -54,6 +57,50 @@ public class TicketController {
 		return "ticket";
 	}
 	
+	//CREAR TICKET
+	@GetMapping("/newticket")
+	public String createTicket(Model model) {
+		Ticket t=new Ticket();
+		model.addAttribute("ticket",t);
+		//Agregando datos del enum
+		model.addAttribute("valuesForTicketStatusEnum",TicketStatus.values());
+		//llamado a los combos
+		model.addAttribute("lstCategories",repoCat.findAll());
+		model.addAttribute("lstTicketTypes",repoTicketType.findAll());
+		return "newTicket";
+	}
+	
+	@PostMapping("/savenewticket")
+	public String saveNewTicket(@ModelAttribute Ticket ticket, Model model) {
+		System.out.println(ticket);
+		
+		// Obtener el usuario autenticado y agregar el user_id al modelo
+		
+		Object userLogged = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserCustom userLoggedData = (UserCustom) userLogged;
+        com.proyectofinal.model.User userActive = userLoggedData.getUser();
+	    
+		
+		Ticket obj=new Ticket();
+		obj.setTicket_id(ticket.getTicket_id());
+		obj.setTicket_date_create(LocalDateTime.now());
+		obj.setTicket_description(ticket.getTicket_description());
+		obj.setTicket_status(ticket.getTicket_status());
+		obj.setTicket_title(ticket.getTicket_title());
+		obj.setCategory_id(ticket.getCategory_id());
+		obj.setIncident_user(userActive); //usuario de sesion
+		obj.setTicket_type_id(ticket.getTicket_type_id());
+		//obj.setAssigned_date(ticket.getAssigned_date());
+		//obj.setAssigned_user(ticket.getAssigned_user());
+		obj.setFlag(true);
+		repoTicket.save(obj);
+		return "redirect:/ticket";
+		 
+		 
+		//return "ticket";
+	}
+	
+	
 	//editar
 	@GetMapping("/editTicket/{ticket_id}")
 //	@PreAuthorize("isAuthenticated()")
@@ -68,11 +115,40 @@ public class TicketController {
 		 * String formattedDate = t.getTicket_date_create().format(formatter);
 		 * model.addAttribute("formattedDate", formattedDate);
 		 */
+		
+		// Obtener el usuario autenticado y agregar el user_id al modelo
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+	    model.addAttribute("incident_user", userDetails.getUsername());
+		
 		//llamado a los combos
 		model.addAttribute("lstCategories",repoCat.findAll());
 		model.addAttribute("lstTicketTypes",repoTicketType.findAll());
 		return "editTicket";
 	}
+	
+	//Grabar ticket vista editTicket
+	@PostMapping("/saveTicket")
+	public String saveTicket(@ModelAttribute Ticket ticket, Model model) {
+		System.out.println(ticket);
+		Ticket obj=new Ticket();
+		obj.setTicket_id(ticket.getTicket_id());
+		obj.setTicket_date_create(ticket.getTicket_date_create());
+		obj.setTicket_description(ticket.getTicket_description());
+		obj.setTicket_status(ticket.getTicket_status());
+		obj.setTicket_title(ticket.getTicket_title());
+		obj.setCategory_id(ticket.getCategory_id());
+		obj.setIncident_user(ticket.getIncident_user());
+		obj.setTicket_type_id(ticket.getTicket_type_id());
+		obj.setAssigned_date(ticket.getAssigned_date());
+		obj.setAssigned_user(ticket.getAssigned_user());
+		obj.setFlag(true);
+		repoTicket.save(obj);
+		//return "redirect:/ticket";
+		return "ticket";
+	}
+	
+	
 	
 	//ELIMINAR
 	@GetMapping("/ticket/deleteTicket/{ticket_id}")

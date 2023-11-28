@@ -262,9 +262,9 @@
                                 <th scope="row" th:text="${user.num_document}"></th>
                                 <th scope="row" th:text="${user.email}"></th>
                                 <th scope="row" th:text="${user.password}"></th>
-<!--                                <th scope="row" th:text="${user.rol_id.name_rol}"></th>-->
+<!--                                <th scope="row" th:text="${user.rol_id.name_rol} ?: 'NO ROLE' ">rol.name_rol</th>-->
                                 <th scope="row" th:each="rol : ${user.rol_id}"
-                                    th:text="${rol.name_rol}">
+                                    th:text="${rol.name_rol}">No Role
                                 </th>
                                 <td th:text="${user.flag ? 'ACTIVO' : 'INACTIVO'}"></td>
                                 <td>

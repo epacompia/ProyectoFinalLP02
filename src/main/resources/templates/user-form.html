@@ -203,7 +203,7 @@
 
                             <div class="mb-3" th:if="${user.user_id}">
                                 <label for="user_id" class="form-label">ID del Usuario</label>
-                                <input type="text" class="form-control" id="user_id" th:field="*{user_id}">
+                                <input type="text" class="form-control" id="user_id" th:field="*{user_id}" readonly="true">
                             </div>
 
                             <div class="row">
@@ -256,7 +256,7 @@
 
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
-                                        <label for="surname2" class="form-label">Numero de Documento</label>
+                                        <label for="num_document" class="form-label">Numero de Documento</label>
                                         <input type="text" class="form-control" id="num_document"
                                                th:field="*{num_document}">
                                     </div>
@@ -277,7 +277,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Contraseña</label>
+                                        <label for="password" class="form-label">Contraseña</label>
                                         <input type="password" class="form-control" id="password" aria-describedby="passwordlHelp"
                                                th:field="*{password}">
                                     </div>
@@ -288,10 +288,12 @@
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
                                         <label class="form-label">Rol</label>
-                                        <select class="form-select mb-3" aria-label="Default select example">
-                                            <option selected="">Open this select menu</option>
-                                            <option th:each="rol : ${roles}" th:selected="${rol == user.rol_id}"
-                                                    th:value="${rol.rol_id}" th:text="${rol.name_rol}"></option>
+                                        <select class="form-select mb-3" aria-label="Default select example" th:field="*{rol_id}">
+                                            <option value="" selected="">Rol</option>
+                                            <option th:each="rol : ${roles}"
+                                                    th:selected="${rol == user.rol_id}"
+                                                    th:value="${rol.rol_id}"
+                                                    th:text="${rol.name_rol}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -301,6 +303,7 @@
                             <div class="row" th:if="${user.user_id}">
                                 <div class="col-sm-6 col-xl-6">
                                     <div class="mb-3">
+                                        <label class="form-label">Estado</label>
                                         <select class="form-select mb-3" aria-label="Default select example" th:field="*{flag}">
 <!--                                            <option value="" th:selected="">Estado</option>-->
                                             <option th:value="true" th:selected="${flag==true}">Activo</option>

@@ -18,9 +18,9 @@ public class Ticket {
 	@Column(name = "ticket_description", nullable = false, length = 500)
 	private String ticket_description;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "ticket_status", nullable = false, length = 30)
-	private TicketStatus ticket_status;
+	
+	@Column(name = "ticket_status", nullable = false, length = 80)
+	private String ticket_status;
 	
 	@Column(name = "ticket_date_create")
 	private LocalDateTime ticket_date_create;
@@ -50,7 +50,7 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(int ticket_id, String ticket_title, String ticket_description, TicketStatus ticket_status,
+	public Ticket(int ticket_id, String ticket_title, String ticket_description, String ticket_status,
 			LocalDateTime ticket_date_create, User assigned_user, LocalDateTime assigned_date, User incident_user,
 			Category category_id, ticket_type ticket_type_id, boolean flag) {
 		this.ticket_id = ticket_id;
@@ -99,11 +99,11 @@ public class Ticket {
 		this.ticket_description = ticket_description;
 	}
 
-	public TicketStatus getTicket_status() {
+	public String getTicket_status() {
 		return ticket_status;
 	}
 
-	public void setTicket_status(TicketStatus ticket_status) {
+	public void setTicket_status(String ticket_status) {
 		this.ticket_status = ticket_status;
 	}
 
