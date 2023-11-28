@@ -21,6 +21,7 @@ import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +54,7 @@ public class TicketController {
 	    User user = (User) userDetails;
 	    model.addAttribute("user", user);
 	    
-		model.addAttribute("lstTickets",repoTicket.findAll());
+		model.addAttribute("lstTickets",repoTicket.findByFlagTrue());
 		return "ticket";
 	}
 	
@@ -144,19 +145,28 @@ public class TicketController {
 		obj.setAssigned_user(ticket.getAssigned_user());
 		obj.setFlag(true);
 		repoTicket.save(obj);
-		//return "redirect:/ticket";
-		return "ticket";
+		return "redirect:/ticket";
+		//return "ticket";
 	}
 	
 	
 	
 	//ELIMINAR
-	@GetMapping("/ticket/deleteTicket/{ticket_id}")
+	@GetMapping("/ticket/delete/{ticket_id}")
 	@PreAuthorize("isAuthenticated()")
 	@Transactional
 	public String deleteTicket(@PathVariable Integer ticket_id) {
-	    repoTicket.updateTicketFlag(ticket_id);
-	    return "redirect:/ticket";
+		Optional<Ticket> codEncontradoTicket=repoTicket.findById(ticket_id);
+		
+		if(codEncontradoTicket.isPresent()) {
+			Ticket ticket=codEncontradoTicket.get();
+			ticket.setFlag(false);
+			repoTicket.save(ticket);
+			return "redirect:/ticket";
+		}else {
+			return "redirect:/error";
+		}
+		
 	}
 
 
