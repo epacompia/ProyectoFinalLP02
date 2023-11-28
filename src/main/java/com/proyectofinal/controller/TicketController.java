@@ -51,6 +51,7 @@ public class TicketController {
 	public String index(HttpServletRequest request, Model model) {
 		//1. Pasando el usuario de sesion a mi vista para ticket
 		// Obtener el usuario autenticado
+
 //	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //	    String username = authentication.getName();
 //	    // Obtener el UserDetails y hacer casting
@@ -78,6 +79,7 @@ public class TicketController {
 				return "ticket";
 			}
 		}
+
 	}
 	
 	//CREAR TICKET
@@ -181,8 +183,8 @@ public class TicketController {
 		obj.setAssigned_user(ticket.getAssigned_user());
 		obj.setFlag(true);
 		repoTicket.save(obj);
-		//return "redirect:/ticket";
-		return "ticket";
+		return "redirect:/ticket";
+		//return "ticket";
 	}
 
 
@@ -206,14 +208,20 @@ public class TicketController {
 	}
 	
 	
-	
-	//ELIMINAR
-	@GetMapping("/ticket/deleteTicket/{ticket_id}")
-//	@PreAuthorize("isAuthenticated()")
+
 	@Transactional
 	public String deleteTicket(@PathVariable Integer ticket_id) {
-	    repoTicket.updateTicketFlag(ticket_id);
-	    return "redirect:/ticket";
+		Optional<Ticket> codEncontradoTicket=repoTicket.findById(ticket_id);
+		
+		if(codEncontradoTicket.isPresent()) {
+			Ticket ticket=codEncontradoTicket.get();
+			ticket.setFlag(false);
+			repoTicket.save(ticket);
+			return "redirect:/ticket";
+		}else {
+			return "redirect:/error";
+		}
+		
 	}
 
 

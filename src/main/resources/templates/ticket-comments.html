@@ -193,49 +193,45 @@
 
 
         <!-- Form Start -->
-        <form action="" th:object="${ticket}" method="post">
+
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Comentarios del Ticket</h6>
+                            <form action="" th:object="${ticket}" method="post">
+                                <h6 class="mb-4">Comentarios del Ticket</h6>
 
 
-                            <div class="row">
-                                <div class="col-sm-6 col-xl-6">
-                                    <div class="mb-3">
-                                        <label for="ticket_title" class="form-label">Titulo del Ticket</label>
-                                        <input type="text" class="form-control" id="ticket_title" th:field="*{ticket_title}" readonly="true">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xl-6">
+                                        <div class="mb-3">
+                                            <label for="ticket_title" class="form-label">Titulo del Ticket</label>
+                                            <input type="text" class="form-control" id="ticket_title" th:field="*{ticket_title}" readonly="true">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-xl-6">
+                                        <div class="mb-3">
+                                            <label for="ticket_date_create" class="form-label">Fecha de Creación del
+                                                Ticket</label>
+                                            <input type="text" class="form-control" id="ticket_date_create" th:field="*{ticket_date_create}" readonly="true">
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6 col-xl-6">
+
+                                <div class="row" th:object="${comment}">
                                     <div class="mb-3">
-                                        <label for="ticket_date_create" class="form-label">Fecha de Creación del
-                                            Ticket</label>
-                                        <input type="text" class="form-control" id="ticket_date_create" th:field="*{ticket_date_create}" readonly="true">
+                                        <label class="form-label">Descripcion del Ticket</label>
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                                  id="floatingTextarea" style="height: 150px;" th:field="*{comment_content}"></textarea>
+
                                     </div>
                                 </div>
-                            </div>
 
+                                <button class="btn btn-primary">Guardar</button>
 
-
-                            <!-- box comment -->
-
-                            <div class="row" th:object="${comment}">
-                                <div class="mb-3">
-                                    <label class="form-label">Descripcion del Ticket</label>
-                                    <textarea class="form-control" placeholder="Leave a comment here"
-                                              id="floatingTextarea" style="height: 150px;" th:field="*{comment_content}"></textarea>
-
-                                </div>
-                            </div>
-
-
-                            <button class="btn btn-primary">Guardar</button>
-
-                            <!-- end box comment -->
-            </form>
+                            </form>
 
                             <!-- comments start -->
 
@@ -271,20 +267,11 @@
                                 </div>
                             </div>
 
-
-
-
-
-                            <!-- end comments -->
-
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- Form End -->
+
 
         <!-- Footer Start -->
         <div class="container-fluid pt-4 px-4">
