@@ -4,6 +4,7 @@ import com.proyectofinal.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -206,9 +207,11 @@ public class TicketController {
 		repoTicket.save(obj);
 		return "redirect:/ticket";
 	}
-	
-	
 
+
+
+	@GetMapping("/ticket/delete/{ticket_id}")
+	@PreAuthorize("isAuthenticated()")
 	@Transactional
 	public String deleteTicket(@PathVariable Integer ticket_id) {
 		Optional<Ticket> codEncontradoTicket=repoTicket.findById(ticket_id);

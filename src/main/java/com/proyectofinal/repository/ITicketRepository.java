@@ -17,6 +17,9 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query("UPDATE Ticket t SET t.flag = false WHERE t.ticket_id = :ticketId")
     void updateTicketFlag(@Param("ticketId") Integer ticketId);
 
+    @Override
+    @Query(value="select * from tickets where flag=1", nativeQuery = true)
+    List<Ticket> findAll();
 
     @Query(value = "select * from tickets where assigned_user = :assigned", nativeQuery = true)
     List<Ticket> findTIcketByAssignedUser(@Param("assigned") Integer assigned);

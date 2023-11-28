@@ -181,7 +181,7 @@
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                         <a href="#" class="dropdown-item">My Profile</a>
                         <a href="#" class="dropdown-item">Settings</a>
-                        <a th:href="/logout" class="dropdown-item">Cerrar Sesión</a>
+                        <a th:href="@{/logout}" class="dropdown-item">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -264,7 +264,7 @@
                                 <th scope="row" th:text="${user.password}"></th>
 <!--                                <th scope="row" th:text="${user.rol_id.name_rol} ?: 'NO ROLE' ">rol.name_rol</th>-->
                                 <th scope="row" th:each="rol : ${user.rol_id}"
-                                    th:text="${rol.name_rol}">No Role
+                                    th:text="${rol} ? ${rol.name_rol} : 'SIN ROL'">
                                 </th>
                                 <td th:text="${user.flag ? 'ACTIVO' : 'INACTIVO'}"></td>
                                 <td>
