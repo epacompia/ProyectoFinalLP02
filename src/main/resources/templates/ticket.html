@@ -73,7 +73,7 @@
 
 						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${#authentication.getPrincipal().getUsername()}|">account</span></h6>-->
 						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${firstname} ${surname1}|">account</span></h6>-->
-						<span>Admin</span>
+<!--						<span>Admin</span>-->
 					</div>
 				</div>
 				<div class="navbar-nav w-100">
@@ -192,7 +192,7 @@
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 							<img class="rounded-circle me-lg-2" src="/img/user.jpg" alt=""
 								style="width: 40px; height: 40px;">
-							<span class="d-none d-lg-inline-flex">John Doe</span>
+							<span class="d-none d-lg-inline-flex" th:text="${#authentication.getPrincipal().getDisplayName()}">John Doe</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
 							<a href="#" class="dropdown-item">My Profile</a>
@@ -249,7 +249,7 @@
 											</td>
 											<td th:text="${t.assigned_user} ? ${t.assigned_user.getDisplayName()} : 'NO ASIGNADO'">
 											</td>
-											<td th:text="${t.assigned_date}"></td>
+											<td th:text="${#temporals.format(t.assigned_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
 											<!--<td>
 												<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i
 														class="fa fa-pen"></i></a>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
 	<meta charset="utf-8">
@@ -55,16 +56,16 @@
 				</a>
 				<div class="d-flex align-items-center ms-4 mb-4">
 					<div class="position-relative">
-						<img class="rounded-circle" th:src="@{img/user.jpg}" alt="" style="width: 40px; height: 40px;">
+						<img class="rounded-circle" th:src="@{/img/user.jpg}" alt="" style="width: 40px; height: 40px;">
 						<div
 							class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
 						</div>
 					</div>
 					<div class="ms-3">
 						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h6>
-
 						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getDisplayName()}"></span></h6>
-						<span>Admin</span>
+						<h6 class="mb-0"><span th:text="${#authentication.getPrincipal().getAuthorities()}"></span></h6>
+<!--						<span>Admin</span>-->
 					</div>
 				</div>
 				<div class="navbar-nav w-100">
@@ -183,7 +184,7 @@
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 							<img class="rounded-circle me-lg-2" th:src="@{/img/user.jpg}" alt=""
 								style="width: 40px; height: 40px;">
-							<span class="d-none d-lg-inline-flex">John Doe</span>
+							<span class="d-none d-lg-inline-flex" th:text="${#authentication.getPrincipal().getDisplayName()}">John Doe</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
 							<a href="#" class="dropdown-item">My Profile</a>
@@ -212,7 +213,7 @@
 										</div>
 										<input type="hidden" class="form-control" th:field="*{incident_user}" id="Incident_user" />
 										<input type="hidden" class="form-control" th:field="*{ticket_date_create}" id="Ticket_date_create" />
-										<input type="hidden" class="form-control" th:field="*{assigned_user}" id="Assigned_user" />
+<!--										<input type="hidden" class="form-control" th:field="*{assigned_user}" id="Assigned_user" />-->
 
 										<div class="mb-3">
 											<label for="ticketTitle" class="form-label">Título del Ticket</label>
@@ -262,6 +263,19 @@
 													th:text="${ti.name_ticket_type}"></option>
 											</select>
 										</div>
+
+
+										<div class="mb-3" th:if="${administrador}">
+											<label for="user_assigned" class="form-label">Tecnico Asignado</label>
+											<select class="form-select" id="user_assigned" th:field="*{assigned_user}">
+												<option value="" selected>Seleccionar...</option>
+												<option th:each="assigned : ${assignedUsers}"
+														th:value="${assigned.user_id}"
+														th:selected="${assigned == ticket.assigned_user}"
+														th:text="|${assigned.firstname} ${assigned.surname1} ${assigned.surname2}|"></option>
+											</select>
+										</div>
+
 										<button type="submit" class="btn btn-primary">Guardar</button>
 										<a href="/ticket" class="btn btn-secondary ms-2">Cancelar</a>
 									</form>

@@ -45,8 +45,12 @@ public class TicketController {
 	private UserService userService;
 	@Autowired
 	private IUserService uService;
-	
-	
+
+
+
+
+
+
 	//listar
 	@GetMapping("/ticket")
 	public String index(HttpServletRequest request, Model model) {
@@ -139,13 +143,44 @@ public class TicketController {
 		return "redirect:/ticket";
 		//return "ticket";
 	}
-	
-	
+
+
+	@PostMapping("/adm/saveTicket")
+	public String saveTicketAdm(@ModelAttribute Ticket ticket, Model model) {
+		//System.out.println(ticket);
+		Ticket obj=new Ticket();
+		obj.setTicket_id(ticket.getTicket_id());
+		obj.setTicket_date_create(LocalDateTime.now());
+		obj.setTicket_description(ticket.getTicket_description());
+		obj.setTicket_status(TicketStatus.SIN_ASIGNAR.toString());
+		obj.setTicket_title(ticket.getTicket_title());
+		obj.setCategory_id(ticket.getCategory_id());
+		obj.setIncident_user(ticket.getIncident_user());
+		obj.setTicket_type_id(ticket.getTicket_type_id());
+		obj.setAssigned_date(LocalDateTime.now());
+		obj.setAssigned_user(ticket.getAssigned_user());
+		obj.setFlag(true);
+		repoTicket.save(obj);
+		return "redirect:/ticket";
+	}
+
+
 	//editar
 	@GetMapping("/editTicket/{ticket_id}")
 //	@PreAuthorize("isAuthenticated()")
 	public String editTicket(@PathVariable Integer ticket_id, Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//variable que almacenará el rol del usuario de sessión
+		String role = String.valueOf(auth.getAuthorities().stream().findFirst().get());
+
 		Ticket t=repoTicket.findById(ticket_id).get();
+
+		if(role.equals("Administrador")){
+			model.addAttribute("administrador", true);
+			model.addAttribute("assignedUsers", uService.getSupportUser());
+		}
+
 		model.addAttribute("ticket",t);
 		//Agregando datos del enum
 		model.addAttribute("valuesForTicketStatusEnum",TicketStatus.values());
@@ -171,42 +206,49 @@ public class TicketController {
 	@PostMapping("/saveTicket")
 	public String saveTicket(@ModelAttribute Ticket ticket, Model model) {
 		//System.out.println(ticket);
-		Ticket obj=new Ticket();
-		obj.setTicket_id(ticket.getTicket_id());
-		obj.setTicket_date_create(ticket.getTicket_date_create());
-		obj.setTicket_description(ticket.getTicket_description());
-		obj.setTicket_status(ticket.getTicket_status());
-		obj.setTicket_title(ticket.getTicket_title());
-		obj.setCategory_id(ticket.getCategory_id());
-		obj.setIncident_user(ticket.getIncident_user());
-		obj.setTicket_type_id(ticket.getTicket_type_id());
-		obj.setAssigned_date(ticket.getAssigned_date());
-		obj.setAssigned_user(ticket.getAssigned_user());
-		obj.setFlag(true);
-		repoTicket.save(obj);
+
+
+		Ticket oldTicket = repoTicket.getById(ticket.getTicket_id());
+
+		oldTicket.setTicket_date_create(oldTicket.getTicket_date_create());
+		oldTicket.setTicket_description(ticket.getTicket_description());
+
+		oldTicket.setTicket_title(ticket.getTicket_title());
+		oldTicket.setCategory_id(ticket.getCategory_id());
+		oldTicket.setIncident_user(oldTicket.getIncident_user());
+		oldTicket.setTicket_type_id(ticket.getTicket_type_id());
+		oldTicket.setFlag(true);
+
+		if(ticket.getAssigned_user() == oldTicket.getAssigned_user()){
+			oldTicket.setTicket_status(TicketStatus.ASIGNADO.toString());
+			oldTicket.setAssigned_date(oldTicket.getAssigned_date());
+			oldTicket.setAssigned_user(oldTicket.getAssigned_user());
+		}
+
+		if(ticket.getAssigned_user() != oldTicket.getAssigned_user()){
+			oldTicket.setTicket_status(TicketStatus.ASIGNADO.toString());
+			oldTicket.setAssigned_date(LocalDateTime.now());
+			oldTicket.setAssigned_user(ticket.getAssigned_user());
+		}
+
+//		Ticket obj=new Ticket();
+//		obj.setTicket_id(ticket.getTicket_id());
+//		obj.setTicket_date_create(ticket.getTicket_date_create());
+//		obj.setTicket_description(ticket.getTicket_description());
+//		obj.setTicket_status(ticket.getTicket_status());
+//		obj.setTicket_title(ticket.getTicket_title());
+//		obj.setCategory_id(ticket.getCategory_id());
+//		obj.setIncident_user(ticket.getIncident_user());
+//		obj.setTicket_type_id(ticket.getTicket_type_id());
+
+
+
+//		obj.setFlag(true);
+		repoTicket.save(oldTicket);
 		return "redirect:/ticket";
 		//return "ticket";
 	}
 
-
-	@PostMapping("/adm/saveTicket")
-	public String saveTicketAdm(@ModelAttribute Ticket ticket, Model model) {
-		//System.out.println(ticket);
-		Ticket obj=new Ticket();
-		obj.setTicket_id(ticket.getTicket_id());
-		obj.setTicket_date_create(LocalDateTime.now());
-		obj.setTicket_description(ticket.getTicket_description());
-		obj.setTicket_status(TicketStatus.SIN_ASIGNAR.toString());
-		obj.setTicket_title(ticket.getTicket_title());
-		obj.setCategory_id(ticket.getCategory_id());
-		obj.setIncident_user(ticket.getIncident_user());
-		obj.setTicket_type_id(ticket.getTicket_type_id());
-		obj.setAssigned_date(LocalDateTime.now());
-		obj.setAssigned_user(ticket.getAssigned_user());
-		obj.setFlag(true);
-		repoTicket.save(obj);
-		return "redirect:/ticket";
-	}
 
 
 
