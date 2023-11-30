@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 
@@ -73,7 +72,7 @@
 
 						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${#authentication.getPrincipal().getUsername()}|">account</span></h6>-->
 						<!--<h6 class="mb-0"><span class="black-text name" th:text="|Usuario: ${firstname} ${surname1}|">account</span></h6>-->
-<!--						<span>Admin</span>-->
+						<!--						<span>Admin</span>-->
 					</div>
 				</div>
 				<div class="navbar-nav w-100">
@@ -192,7 +191,8 @@
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 							<img class="rounded-circle me-lg-2" src="/img/user.jpg" alt=""
 								style="width: 40px; height: 40px;">
-							<span class="d-none d-lg-inline-flex" th:text="${#authentication.getPrincipal().getDisplayName()}">John Doe</span>
+							<span class="d-none d-lg-inline-flex"
+								th:text="${#authentication.getPrincipal().getDisplayName()}">John Doe</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
 							<a href="#" class="dropdown-item">My Profile</a>
@@ -204,18 +204,38 @@
 			</nav>
 			<!-- Navbar End -->
 
-			<!--BOTON PARA NUEVO TICKET-->
 			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4 justify-content-end">
-					<a th:href="@{/newticket}" class="col-sm-6 col-xl-3">
-						<div class="bg-secondary rounded d-flex align-items-center p-4">
-							<i class="fa fa-plus fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
-							<p class="mb-0">Crear Nuevo</p>
-						</div>
-					</a>
+				<div class="row g-4 justify-content-between">
+					<!-- Primer botón el reporte -->
+					<div class="col-sm-6 col-xl-3">
+						<a th:href="@{/reportes}">
+							<div class="bg-secondary rounded d-flex align-items-center p-4">
+								<i class="fa fa-download fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
+								<p class="mb-0">Descargar reporte</p>
+							</div>
+						</a>
+					</div>
+					<!-- boton para la grafica -->
+					<div class="col-sm-6 col-xl-3">
+						<a th:href="@{/graficos}">
+							<div class="bg-secondary rounded d-flex align-items-center p-4">
+								<i class="fa fa-chart-bar fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
+								<p class="mb-0">Gráfico estadistico</p>
+							</div>
+						</a>
+					</div>
+					<!-- boton para crear nuevo  -->
+					<div class="col-sm-6 col-xl-3 text-end">
+						<a th:href="@{/newticket}">
+							<div class="bg-secondary rounded d-flex align-items-center p-4">
+								<i class="fa fa-plus fa-3x text-primary mr-3" style="margin-right: 15px;"></i>
+								<p class="mb-0">Crear Nuevo</p>
+							</div>
+						</a>
+					</div>
 				</div>
 			</div>
-			<!--FIN BOTON NUEVO TICKET-->
+
 			<!-- Table Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="row g-4">
@@ -247,9 +267,11 @@
 											<td th:text="${t.ticket_date_create}"></td>
 											<td th:text="${t.incident_user.firstname + ' ' + t.incident_user.surname1}">
 											</td>
-											<td th:text="${t.assigned_user} ? ${t.assigned_user.getDisplayName()} : 'NO ASIGNADO'">
+											<td
+												th:text="${t.assigned_user} ? ${t.assigned_user.getDisplayName()} : 'NO ASIGNADO'">
 											</td>
-											<td th:text="${#temporals.format(t.assigned_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td th:text="${#temporals.format(t.assigned_date, 'yyyy-MM-dd HH:mm:ss')}">
+											</td>
 											<!--<td>
 												<a class="m-2" th:href="@{/edit/}+${rol.rol_id}"><i
 														class="fa fa-pen"></i></a>
@@ -263,17 +285,17 @@
 												<a class="m-2" href="#" data-bs-toggle="modal"
 													th:attr="data-bs-target='#deleteTicketModal'+${t.ticket_id}"><i
 														class="fa fa-trash"></i></a>
-<!--												<a class="m-2" href="#" data-bs-toggle="modal"-->
-<!--													th:attr="data-bs-target='#viewTicketDetailModal'+${t.ticket_id}"><i-->
-<!--														class="fa fa-eye"></i></a>-->
-												<a class="m-2" th:href="@{/ticket/comments/{id}(id=${t.ticket_id})}" ><i
+												<!--												<a class="m-2" href="#" data-bs-toggle="modal"-->
+												<!--													th:attr="data-bs-target='#viewTicketDetailModal'+${t.ticket_id}"><i-->
+												<!--														class="fa fa-eye"></i></a>-->
+												<a class="m-2" th:href="@{/ticket/comments/{id}(id=${t.ticket_id})}"><i
 														class="fa fa-eye"></i></a>
 											</td>
 
 
 											<!--MODAL PARA ELIMINAR-->
-											<div class="modal fade" th:attr="id=deleteTicketModal+${t.ticket_id}" tabindex="-1"
-												aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal fade" th:attr="id=deleteTicketModal+${t.ticket_id}"
+												tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered">
 													<div class="modal-content bg-secondary">
 														<div class="modal-header">
@@ -288,7 +310,8 @@
 															<button type="button" class="btn btn-secondary"
 																data-bs-dismiss="modal">Cancelar
 															</button>
-															<a type="button" class="btn btn-primary" th:href="@{/ticket/delete/{ticket_id}(ticket_id=${t.ticket_id})}">Eliminar</a>
+															<a type="button" class="btn btn-primary"
+																th:href="@{/ticket/delete/{ticket_id}(ticket_id=${t.ticket_id})}">Eliminar</a>
 
 														</div>
 													</div>

@@ -2,7 +2,10 @@ package com.proyectofinal.controller;
 
 import com.proyectofinal.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,10 +24,16 @@ import com.proyectofinal.repository.ITicketRepository;
 import com.proyectofinal.repository.ITicketTypeRepository;
 
 import jakarta.transaction.Transactional;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import javax.sql.DataSource;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -268,6 +277,46 @@ public class TicketController {
 		}
 		
 	}
+	
+	//REPORTE PDF
+	@Autowired
+	private DataSource dataSource; // javax.sql
+	@Autowired
+	private ResourceLoader resourceLoader; // core.io
+	@GetMapping("/reportes")
+	public void reportes(HttpServletResponse response) {
+	//response.setHeader("Content-Disposition", "attachment; filename=\"reporte.pdf\";");
+	response.setHeader("Content-Disposition", "inline;");
+	response.setContentType("application/pdf");
+	try {
+	String ru = resourceLoader.getResource("classpath:reporteTickets.jasper").getURI().getPath();
+	JasperPrint jasperPrint = JasperFillManager.fillReport(ru, null, dataSource.getConnection());
+	OutputStream outStream = response.getOutputStream();
+	JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	} catch (Exception e) {
+	e.printStackTrace();
+	}
+	}
+	
+	
+	
+	//REPORTE GRAFICO
+		
+		@GetMapping("/graficos")
+		public void reportesGraficos(HttpServletResponse response) {
+		//response.setHeader("Content-Disposition", "attachment; filename=\"reporte.pdf\";");
+		response.setHeader("Content-Disposition", "inline;");
+		response.setContentType("application/pdf");
+		try {
+		String ru = resourceLoader.getResource("classpath:graficoTickets.jasper").getURI().getPath();
+		JasperPrint jasperPrint = JasperFillManager.fillReport(ru, null, dataSource.getConnection());
+		OutputStream outStream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		}
+
 
 
 }
