@@ -15,11 +15,11 @@ public class HomeController {
 	@Autowired
 	private IUserRepo repoUser;
 
-	@GetMapping("/main")
-	public String goHome(Model model) {
-		model.addAttribute("titulo","Bienvenidos");
-		return "Index";
-	}
+//	@GetMapping("/main")
+//	public String goHome(Model model) {
+//		model.addAttribute("titulo","Bienvenidos");
+//		return "Index";
+//	}
 
 	
 	//login
