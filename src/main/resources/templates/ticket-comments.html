@@ -87,8 +87,10 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                             class="fa fa-chart-pie me-2"></i>Reportes</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a th:href="@{/users/new}" class="dropdown-item">Crear Usuario</a>
-                        <a th:href="@{/rol}" class="dropdown-item">Roles</a>
+                        <a th:href="@{/reportes}" th:target="_blank" class="dropdown-item"><i
+                                class="fa fa-chart-line me-2"></i>Reporte de Tickets</a>
+                        <a th:href="@{/graficos}" th:target="_blank" class="dropdown-item"><i
+                                class="fa fa-chart-bar me-2"></i>Reporte según Categoria</a>
                     </div>
                 </div>
 
