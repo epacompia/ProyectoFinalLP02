@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -58,6 +59,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("user", user);
+		model.addAttribute("typeDocuments", documentTypeService.getAll());
+		model.addAttribute("roles", rolRepository.findAll());
 		
 		return "user-form";
 	}
@@ -76,6 +79,7 @@ public class UserController {
 		newUser.setPassword(user.getPassword());
 		newUser.setRol_id(user.getRol_id());
 		newUser.setFlag(user.isFlag());
+		newUser.setUpdate_at(LocalDateTime.now());
 		userService.update(newUser);
 		return "redirect:/users";
 	}

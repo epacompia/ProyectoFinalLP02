@@ -21,6 +21,33 @@ public class Category {
 	private String name_category;
 	
 	private boolean flag;
+	
+	
+	
+
+	public Category() {
+	}
+
+	
+	
+	
+	public Category(int category_id, String name_category, boolean flag) {
+		this.category_id = category_id;
+		this.name_category = name_category;
+		this.flag = flag;
+	}
+
+
+	
+
+
+	@Override
+	public String toString() {
+		return "Category [category_id=" + category_id + ", name_category=" + name_category + ", flag=" + flag + "]";
+	}
+
+
+
 
 	public int getCategory_id() {
 		return category_id;

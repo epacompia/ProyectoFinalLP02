@@ -1,7 +1,7 @@
 package com.proyectofinal.controller;
 
 import com.proyectofinal.model.Category;
-import com.proyectofinal.model.TicketType;
+import com.proyectofinal.model.ticket_type;
 import com.proyectofinal.service.ITicketTypeService;
 import com.proyectofinal.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class TicketTypeController {
 	
 	@GetMapping("/ticketstype")
 	public String ticketstype(Model model) {
-		List<TicketType> ticketsType = ticketTypeServiceService.getAll();
+		List<ticket_type> ticketsType = ticketTypeServiceService.getAll();
 		model.addAttribute("ticketsType", ticketsType);
 		return "ticket-type";
 	}
@@ -31,14 +31,14 @@ public class TicketTypeController {
 	
 	@GetMapping("/ticketstype/new")
 	public String saveTicketTypeForm(Model model) {
-		TicketType ticketType = new TicketType();
+		ticket_type ticketType = new ticket_type();
 		model.addAttribute("ticketType", ticketType);
 		return "ticket-type-form";
 	}
 	
 	@PostMapping("/ticketstype/new")
-	public String saveTicketType(@ModelAttribute("ticketType") TicketType ticketType, Model model) {
-		TicketType newTicketType = new TicketType();
+	public String saveTicketType(@ModelAttribute("ticketType") ticket_type ticketType, Model model) {
+		ticket_type newTicketType = new ticket_type();
 		newTicketType.setTicket_type_id(ticketType.getTicket_type_id());
 		newTicketType.setName_ticket_type(ticketType.getName_ticket_type());
 		newTicketType.setFlag(true);
@@ -49,7 +49,7 @@ public class TicketTypeController {
 	@GetMapping("/ticketstype/edit/{id}")
 	public String updateTicketTypeForm(@PathVariable Integer id,Model model) {
 
-		TicketType ticketType = ticketTypeServiceService.getOne(id);
+		ticket_type ticketType = ticketTypeServiceService.getOne(id);
 		if(ticketType == null) {
 			return "redirect:/ticketstype";
 		}
@@ -60,8 +60,8 @@ public class TicketTypeController {
 	}
 	
 	@PostMapping("/ticketstype/edit/{id}")
-	public String updateTicketType(@PathVariable Integer id, @ModelAttribute("ticketType") TicketType ticketType, Model model) {
-		TicketType newTicketType = ticketTypeServiceService.getOne(id);
+	public String updateTicketType(@PathVariable Integer id, @ModelAttribute("ticketType") ticket_type ticketType, Model model) {
+		ticket_type newTicketType = ticketTypeServiceService.getOne(id);
 		newTicketType.setName_ticket_type(ticketType.getName_ticket_type());
 		newTicketType.setFlag(ticketType.isFlag());
 		ticketTypeServiceService.update(newTicketType);

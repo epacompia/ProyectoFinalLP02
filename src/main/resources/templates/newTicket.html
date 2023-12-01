@@ -72,12 +72,12 @@
 					</div>
 				</div>
 				<div class="navbar-nav w-100">
-					<a th:href="@{/ticket}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Tickets</a>
+					<a th:href="@{/ticket}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Tickets</a>
 					<a th:href="@{/categories}" class="nav-item nav-link"><i class="fa fa-tag me-2"></i>Categoria de Ticket</a>
 					<a th:href="@{/ticketstype}" class="nav-item nav-link"><i class="fa fa-ticket-alt me-2"></i>Tipo de Ticket</a>
 
 					<div class="nav-item dropdown">
-						<a th:href="@{/users}" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
+						<a th:href="@{/users}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
 								class="fa fa-user-circle me-2"></i>Usuarios</a>
 						<div class="dropdown-menu bg-transparent border-0">
 							<a th:href="@{/users}" class="dropdown-item"><i class="fa fa-users me-2"></i>Usuarios</a>
@@ -198,27 +198,102 @@
 				</div>
 			</nav>
 			<!-- Navbar End -->
-			<!--FORMULARIO PARA EDITAR REGISTRO-->
-			<div class="col-sm-12 col-xl-12">
-				<div class="bg-secondary rounded h-100 p-4">
-					<h6 class="mb-4">Basic Form</h6>
-					<form action="/saverol" method="post" th:object="${rol}">
-						<div class="mb-3">
-							<!--<label for="exampleInputEmail1" class="form-label">Email address</label>-->
-							<input type="hidden" class="form-control" id="rol_id" th:field="*{rol_id}">
+
+			<!--FORMULARIO PARA EDITAR TICKET-->
+			<div class="container-fluid pt-4 px-4">
+				<div class="col-sm-12 col-xl-12">
+					<div class="bg-secondary rounded h-100 p-4">
+						<h3 class="mb-4">Editar ticket</h3>
+						<div class="container-fluid pt-4 px-4">
+							<div class="col-sm-12 col-xl-12">
+								<div class="bg-secondary rounded h-100 p-4">
+
+									<form action="/savenewticket" method="post" th:object="${ticket}">
+										
+										<input type="hidden" class="form-control" th:field="*{incident_user}" id="Incident_user" />
+										<input type="hidden" class="form-control" th:field="*{ticket_date_create}" id="Ticket_date_create" />
+										<input type="hidden" class="form-control" th:field="*{assigned_user}" id="Assigned_user" />
+										<!--Titulo del ticket-->
+										<div class="mb-3">
+											<label for="ticket_title" class="form-label">Título del Ticket</label>
+											<input type="text" class="form-control" th:field="*{ticket_title}"
+												id="ticket_title">
+											<div th:text="${mensaje1}" th:class="${cssmensaje1}" role="alert"></div>
+										</div>
+										<!--Descripcion del ticket-->
+										<div class="mb-3">
+											<label for="ticket_description" class="form-label">Descripción del
+												Ticket</label>
+											<textarea class="form-control" id="ticket_description"
+												th:field="*{ticket_description}" rows="4"></textarea>
+										</div>
+										
+										<!--<div class="mb-3">
+											<label for="ticketDateCreate" class="form-label">Fecha de Creación del
+												Ticket</label>
+											<input type="date" class="form-control" th:field="*{ticket_date_create}" id="ticketDateCreate">
+										</div>-->
+										<!--<div class="mb-3">
+											<label for="ticketDateCreate" class="form-label">Fecha de Creación del
+												Ticket</label>
+											<input type="date" class="form-control" th:value="${formattedDate}"
+												th:field="*{ticket_date_create}" id="ticketDateCreate">
+										</div>-->
+
+										<div class="mb-3">
+											<label for="categoryId" class="form-label">Categoría</label>
+											<select class="form-select" id="categoryId" th:field="*{category_id}">
+												<option value="-1">Seleccionar...</option>
+												<option th:each="c : ${lstCategories}" th:value="${c.category_id}"
+													th:text="${c.name_category}"></option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="ticketTypeId" class="form-label">Tipo de Ticket</label>
+											<select class="form-select" id="ticketTypeId" th:field="*{ticket_type_id}">
+												<option value="-1">Seleccionar...</option>
+												<option th:each="ti : ${lstTicketTypes}" th:value="${ti.ticket_type_id}"
+													th:text="${ti.name_ticket_type}"></option>
+											</select>
+										</div>
+										<div class="mb-3" hidden>
+											<label for="ticketStatus" class="form-label">Estado del Ticket</label>
+											<select class="form-select" id="ticketStatus" th:field="*{ticket_status}">												
+												<option value="en-proceso" th:each="e :${valuesForTicketStatusEnum}"
+													th:value="${e}" th:text="${e}"></option>
+
+											</select>
+										</div>
+										<button type="submit" class="btn btn-primary">Guardar</button>
+										<a href="/ticket" class="btn btn-secondary ms-2">Cancelar</a>
+									</form>
+								</div>
+							</div>
 						</div>
-						<div class="mb-3">
-							<label for="name_rol" class="form-label">Nombre del rol</label>
-							<input type="text" class="form-control" th:field="*{name_rol}" id="name_rol">
-						</div>
-						<button type="submit" class="btn btn-primary">Guardar</button>
-						<a href="/rol" class="btn btn-danger">Regresar</a>
-					</form>
-					<br>
-					<div th:text="${mensaje}" th:class="${cssmensaje}" role="alert"></div>
+
+					</div>
 				</div>
 			</div>
-			<!--FIN FORMULARIO PARA EDITAR REGISTRO-->
+
+			<!--FIN FORMULARIO PARA EDITAR TICKET-->
+
+			<!-- Footer Start -->
+			<div class="container-fluid pt-4 px-4">
+				<div class="bg-secondary rounded-top p-4">
+					<div class="row">
+						<div class="col-12 col-sm-6 text-center text-sm-start">
+							&copy; <a href="#">Your Site Name</a>, All Right Reserved.
+						</div>
+						<div class="col-12 col-sm-6 text-center text-sm-end">
+							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+							Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+							<br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Footer End -->
+
 		</div>
 		<!-- Content End -->
 

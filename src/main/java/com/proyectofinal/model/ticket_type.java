@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ticket_type")
-public class TicketType {
+public class ticket_type {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,12 @@ public class TicketType {
 
 	
 	
-	public TicketType() {
+	public ticket_type() {
 	}
 
 
 
-	public TicketType(int ticket_type_id, String name_ticket_type, boolean flag) {
+	public ticket_type(int ticket_type_id, String name_ticket_type, boolean flag) {
 		this.ticket_type_id = ticket_type_id;
 		this.name_ticket_type = name_ticket_type;
 		this.flag = flag;

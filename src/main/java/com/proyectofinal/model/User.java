@@ -1,16 +1,22 @@
 package com.proyectofinal.model;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
 
 
 @Entity
@@ -47,19 +53,32 @@ public class User {
 	@Column(name = "password", nullable=false)
 	private String password;
 	
-	@ManyToOne
-	@JoinColumn(name = "rol_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_rol"))
-	private Rol rol_id;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "rol_id", nullable = false, foreignKey = @ForeignKey(name
+	 * = "fk_user_rol")) private List<Rol> rol_id;
+	 */
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "rol_id"))
+	private List<Rol> rol_id;
 	
 	private boolean flag;
 
 	@Column(name = "create_at", updatable = false)
 	private LocalDateTime create_at;
 	
-	@Column(name = "update_at")
+	@Column(name = "update_at", nullable = true)
 	private LocalDateTime update_at;
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", firstname=" + firstname + ", secondname=" + secondname + ", surname1="
+				+ surname1 + ", surname2=" + surname2 + ", document_type_id=" + document_type_id + ", num_document="
+				+ num_document + ", email=" + email + ", password=" + password + ", rol_id=" + rol_id + ", flag=" + flag
+				+ ", create_at=" + create_at + ", update_at=" + update_at + "]";
+	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -132,11 +151,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Rol getRol_id() {
+	public List<Rol> getRol_id() {
 		return rol_id;
 	}
 
-	public void setRol_id(Rol rol_id) {
+	public void setRol_id(List<Rol> rol_id) {
 		this.rol_id = rol_id;
 	}
 
@@ -163,7 +182,10 @@ public class User {
 	public void setUpdate_at(LocalDateTime update_at) {
 		this.update_at = update_at;
 	}
-	
+
+	public String getDisplayName(){
+		return getFirstname() + " " + getSurname1();
+	}
 
 
 }
